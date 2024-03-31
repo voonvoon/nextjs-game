@@ -96,9 +96,10 @@ const Header = () => {
                       Sign In
                       <FcGoogle
                         style={{
-                          fontSize: "25px",
+                          fontSize: "18px",
                           cursor: "pointer",
-                          marginLeft: "12px",
+                          marginLeft: "2px",
+                          alignItems: "center"
                         }}
                         className={link}
                       />

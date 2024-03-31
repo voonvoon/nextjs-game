@@ -1,6 +1,6 @@
 const headerClassNames = {
     header: "fixed w-full top-0 left-0 z-20 bg-black text-white",
-    container: "container mx-auto py-4 px-6 flex items-center justify-between",
+    container: "container mx-auto py-4 px-3 flex items-center justify-between",
     logoContainer: "flex items-center",
     logo: "font-bold text-xl hover:text-primary-light",
     nav: "",
@@ -13,7 +13,7 @@ const headerClassNames = {
     signupBtn:
       "bg-blue-500 mr-4 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded",
     signinBtn:
-      "bg-blue-500 flex hover:bg-blue-700 text-white font-bold py-2 px-4 rounded",
+      "bg-blue-500 flex items-center justify-center hover:bg-blue-700 text-white font-bold py-2 px-2 rounded m-1 text-xs sm:text-base",
     logoutBtn:
       "bg-blue-500 ml-4 flex hover:bg-blue-700 text-white font-bold py-2 px-4 rounded",
   };

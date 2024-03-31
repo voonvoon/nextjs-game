@@ -4,10 +4,14 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { NextAuthOptions } from "next-auth";
 import clientPromise from "./mongodb";
 import { MongoClient } from "mongodb";
+import { compare } from 'bcrypt';
+//import { toast } from "react-hot-toast";
 
 //test
 // import NextAuth from "next-auth/next";
  //import type { Adapter } from "@auth/core/adapters";
+
+
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -25,27 +29,53 @@ export const authOptions: NextAuthOptions = {
         },
         password: { label: "Password", type: "password" },
       },
+      // async authorize(credentials, req) {
+      //   if (!credentials?.email || !credentials?.password) {
+      //     throw new Error("Please provide valid credentials");
+      //   }
+
+      //   const client = await MongoClient.connect(
+      //     process.env.MONGODB_URI as string
+      //   );
+
+      //   const db = client.db();
+
+      //   const user = await db
+      //     .collection("users")
+      //     .findOne({ email: credentials.email });
+
+      //   if (user) {
+      //     return user as any;
+      //   } else {
+      //     return null;
+      //   }
+      // },
       async authorize(credentials, req) {
         if (!credentials?.email || !credentials?.password) {
           throw new Error("Please provide valid credentials");
         }
-
-        const client = await MongoClient.connect(
-          process.env.MONGODB_URI as string
-        );
-
+      
+        const client = await MongoClient.connect(process.env.MONGODB_URI as string);
         const db = client.db();
-
-        const user = await db
-          .collection("users")
-          .findOne({ email: credentials.email });
-
+      
+        const user = await db.collection("users").findOne({ email: credentials.email });
+      
         if (user) {
-          return user as any;
+          const isPasswordValid = await compare(credentials.password, user.hashedPassword);
+          if (isPasswordValid) {
+            // Password is valid, return the user
+            return user as any;
+          } else {
+            // Password is invalid
+            //toast.error('password invalid, try again');
+            throw new Error("password invalid");
+          }
         } else {
+          // User not found
           return null;
         }
-      },
+      }
+     
     }),
   ],
   session: {
