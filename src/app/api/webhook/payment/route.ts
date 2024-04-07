@@ -3,11 +3,19 @@ import { NextResponse } from "next/server";
 import { createOrder, updateGameQuantity } from "@/libs/apis";
 const Chip = require("Chip").default;
 
-
 //Chip set up
 Chip.ApiClient.instance.basePath = process.env.ENDPOINT;
 Chip.ApiClient.instance.token = process.env.API_KEY;
 const apiInstance = new Chip.PaymentApi();
+
+const test = [{
+  _id: "testid",
+  name: "testName",
+  images: [],
+  quantity: 121, 
+  maxQuantity: 121,
+  price: 121,
+}];
 
 export async function POST(req: any, res: any) {
   const { rawBody, headers } = req;
@@ -22,11 +30,10 @@ export async function POST(req: any, res: any) {
   );
   console.log("/webhook/payment EVENT===========>: ", parsed.event_type);
   console.log("/webhook/payment VERIFIED=============>: ", verified);
-  //create order 
-
+  //create order
+  createOrder(test, 'test@gmail.com');
 
   //update db qty
-
 
   res.end("WEBHOOK OK!");
 }
