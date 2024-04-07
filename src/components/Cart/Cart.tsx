@@ -25,21 +25,32 @@ const Cart: FC = () => {
   const handleRemoveItem = (id: string) =>
     dispatch(removeItemFromCart({ _id: id }));
 
-  const checkoutHandler = async () => {
-    const stripe = await getStripe();
+  // const checkoutHandler = async () => {
+  //   const stripe = await getStripe();
 
-    const { data } = await axios.post("/api/stripe", {
+  //   const { data } = await axios.post("/api/stripe", {
+  //     cartItems,
+  //     userEmail: session?.user?.email,
+  //   });
+
+  //   if (!data) return;
+
+  //   //remove items from cart
+  //   localStorage.removeItem("cart");
+
+  //   stripe.redirectToCheckout({ sessionId: data.id });
+  // };
+
+  const checkoutHandler = async () => {
+    const { data } = await axios.post("/api/chip", {
       cartItems,
       userEmail: session?.user?.email,
     });
-
     if (!data) return;
+    console.log("let see sessions yoy===>", data)
+    window.location.href = data.checkout_url;
 
-    //remove items from cart
-    localStorage.removeItem("cart");
-
-    stripe.redirectToCheckout({ sessionId: data.id });
-  };
+  }
 
   useEffect(() => {
     setRenderComponent(true);

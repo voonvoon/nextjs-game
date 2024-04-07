@@ -65,7 +65,7 @@ export const authOptions: NextAuthOptions = {
           if (isPasswordValid) {
             // Password is valid, return the user
             return user as any;
-          } else {
+          } else if(!isPasswordValid){
             // Password is invalid
             //toast.error('password invalid, try again');
             throw new Error("password invalid");

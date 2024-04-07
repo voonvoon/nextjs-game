@@ -1,56 +1,74 @@
 import sanityClient from "@/libs/sanity";
 import { Game, GameSubset } from "@/model/game";
 import { NextResponse } from "next/server";
-import Stripe from "stripe";
-import { createOrder, updateGameQuantity } from "@/libs/apis";
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: "2023-10-16",
-});
+//import { createOrder, updateGameQuantity } from "@/libs/apis";
+const Chip = require("Chip").default;
 
 export async function POST(req: Request, res: Response) {
-  const {cartItems, userEmail} = (await req.json());
-  const origin = req.headers.get("origin"); //origin:https://example.com
+  const { cartItems, userEmail } = await req.json();
+  //const origin = req.headers.get("origin"); //origin:https://example.com
 
+  //Chip set up
+  Chip.ApiClient.instance.basePath = process.env.ENDPOINT;
+  Chip.ApiClient.instance.token = process.env.API_KEY;
+  const apiInstance = new Chip.PaymentApi();
+
+  //console.log("cartItems123====>", cartItems);
+
+  // get item from our own database(sanity)
   const updatedItems: GameSubset[] =
     (await fetchAndCalculateItemPricesAndQuantity(cartItems)) as GameSubset[];
 
   console.log("updatedItems=====>", updatedItems);
 
+  //make [{product},{product}..]to match chip payment gateway from updatedItems
+  const productsForChipIn = updatedItems.map((item) => {
+    return {
+      name: item.name,
+      price: item.price * 100,  //chip need *100
+      quantity: item.quantity,
+    };
+  });
+
+  //console.log("see formatted products for chip====>", productsForChipIn);
+
+  const client = { email: userEmail || 'test@gmail.com' };
+  const details = {
+    // products: [
+    //   { name: "Test", price: 100, quantity: 3, discount: 50 },
+    //   { name: "Test2", price: 100, quantity: 3 },
+    //   { name: "Test3", price: 300, quantity: 3 },
+    // ],
+    products:productsForChipIn
+  };
+
+  const purchase = {
+    brand_id: process.env.BRAND_ID,
+    client: client,
+    purchase: details,
+    success_redirect: `${process.env.BASE_URL}/redirect/payment_success`,
+    failure_redirect: `${process.env.BASE_URL}/redirect/payment_fialed`,
+    success_callback: `${process.env.BASE_URL}/api/callback`,
+  };
+
   try {
-    const session = await stripe.checkout.sessions.create({
-      line_items: updatedItems.map((item) => ({
-        quantity: item.quantity,
-        adjustable_quantity: {
-          enabled: true,
-          maximum: item.maxQuantity,
-          minimum: 1,
-        },
-        price_data: {
-          currency: "usd",
-          product_data: {
-            name: item.name,
-            images: [item.images[0].url],
-          },
-          unit_amount: parseInt((item.price * 100).toString()),
-        },
-      })),
-      payment_method_types: ["card"],
-      billing_address_collection: "required",
-      mode: "payment",
-      success_url: `${origin}/?success=true`,
-      cancel_url: `${origin}/?canceled=true`,
-      phone_number_collection: { enabled: true },
+    //When the Promise resolves, its value (in this case, the data returned from the API call) is assigned to chipData.
+    const chipData = await new Promise((resolve, reject) => {
+      //@ts-ignore
+      apiInstance.purchasesCreate(purchase, function (error, data, response) {
+        if (error) {
+          console.log("API call failed. Error:", error);
+          reject(error);
+        } else {
+          resolve(data);
+        }
+      });
     });
 
-    //update qty in sanity
-    await updateGameQuantity(updatedItems);
+    //console.log("chipData====>", chipData);
 
-    //Create an order in sanity
-
-    await createOrder(updatedItems, userEmail);
-
-    return NextResponse.json(session, {
+    //res chipData to frtend to redirect to checkout_url
+    return NextResponse.json(chipData, {
       status: 200,
       statusText: "payment very successful!",
     });
@@ -61,7 +79,7 @@ export async function POST(req: Request, res: Response) {
 }
 
 // check the quantity against what we've from sanity
-//use out own price from sanity
+//use our own price from sanity
 
 async function fetchAndCalculateItemPricesAndQuantity(cartItems: Game[]) {
   // use async / await
@@ -83,7 +101,7 @@ async function fetchAndCalculateItemPricesAndQuantity(cartItems: Game[]) {
 
     const updatedItems: GameSubset[] = sanityItems.map((item) => ({
       ...item,
-      maxQuantity: item.quantity,
+      maxQuantity: item.quantity, 
     }));
 
     // check quantity
@@ -95,7 +113,7 @@ async function fetchAndCalculateItemPricesAndQuantity(cartItems: Game[]) {
       );
     }
 
-    //else we are good to go:
+    //else we are good to go, continue...:
     //calculate price
     const calculatedItemPrices: GameSubset[] = updatedItems.map((item) => {
       const cartItem = cartItems.find((cartItem) => cartItem._id === item._id); // this retunrn [] for item match between user sent and sanity db
