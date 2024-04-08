@@ -32,7 +32,7 @@ function rawBodyMiddleware(req:any, res:any, next:any) {
   });
 }
 
-export default async function handler(req:any, res:any) {
+export default async function POST(req:any, res:any) {
   if (req.method === "POST") {
     rawBodyMiddleware(req, res, async function () {
       const { rawBody, headers } = req;
