@@ -10,14 +10,14 @@ const apiInstance = new Chip.PaymentApi();
 
 const test = [{
   _id: "testid",
-  name: "testName",
+  name: "testNamehaha",
   images: [],
   quantity: 121, 
   maxQuantity: 121,
   price: 121,
 }];
 
-// Middleware function to handle raw body
+// Middleware function to handle raw body..
 function rawBodyMiddleware(req:any, res:any, next:any) {
   let rawBody = "";
   req.setEncoding("utf8");
