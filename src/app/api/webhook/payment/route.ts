@@ -1,6 +1,6 @@
-import sanityClient from "@/libs/sanity";
-import { NextResponse } from "next/server";
-import { createOrder, updateGameQuantity } from "@/libs/apis";
+// pages/api/webhook/payment.js
+
+import { createOrder } from "@/libs/apis";
 const Chip = require("Chip").default;
 
 // Chip set up
@@ -17,46 +17,47 @@ const test = [{
   price: 121,
 }];
 
-// Define middleware function
+// Middleware function to handle raw body
 function rawBodyMiddleware(req:any, res:any, next:any) {
-  req.rawBody = "";
+  let rawBody = "";
   req.setEncoding("utf8");
 
   req.on("data", function (chunk:any) {
-    if (chunk) req.rawBody += chunk;
+    if (chunk) rawBody += chunk;
   });
 
   req.on("end", function () {
+    req.rawBody = rawBody;
     next();
   });
 }
 
-export async function POST(req:any, res:any) {
-  const { rawBody, headers } = req;
-  const parsed = JSON.parse(rawBody);
-  const xsignature = headers["x-signature"];
-  const publicKey = process.env.WEBHOOK_PUBLIC_KEY;
+export default async function handler(req:any, res:any) {
+  if (req.method === "POST") {
+    rawBodyMiddleware(req, res, async function () {
+      const { rawBody, headers } = req;
+      const parsed = JSON.parse(rawBody);
+      const xsignature = headers["x-signature"];
+      const publicKey = process.env.WEBHOOK_PUBLIC_KEY;
 
-  const verified = apiInstance.verify(
-    rawBody,
-    Buffer.from(xsignature, "base64"),
-    publicKey
-  );
-  console.log("/webhook/payment EVENT===========>: ", parsed.event_type);
-  console.log("/webhook/payment VERIFIED=============>: ", verified);
-  //create order
-  createOrder(test, 'test@gmail.com');
+      const verified = apiInstance.verify(
+        rawBody,
+        Buffer.from(xsignature, "base64"),
+        publicKey
+      );
+      console.log("/webhook/payment EVENT===========>: ", parsed.event_type);
+      console.log("/webhook/payment VERIFIED=============>: ", verified);
+      
+      // Create order
+      createOrder(test, 'test@gmail.com');
 
-  //update db qty
+      // You can add logic to update db qty here
 
-  res.end("WEBHOOK OK!");
-}
-
-// Implement middleware in the route
-export default function handler(req:any, res:any) {
-  rawBodyMiddleware(req, res, function () {
-    POST(req, res);
-  });
+      res.end("WEBHOOK OK!");
+    });
+  } else {
+    res.status(405).end(); // Method Not Allowed
+  }
 }
 
 
