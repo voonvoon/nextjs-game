@@ -1,5 +1,4 @@
 // pages/api/webhook/payment.js
-
 import { createOrder } from "@/libs/apis";
 const Chip = require("Chip").default;
 
@@ -8,21 +7,23 @@ Chip.ApiClient.instance.basePath = process.env.ENDPOINT;
 Chip.ApiClient.instance.token = process.env.API_KEY;
 const apiInstance = new Chip.PaymentApi();
 
-const test = [{
-  _id: "testid",
-  name: "testNamehaha",
-  images: [],
-  quantity: 121, 
-  maxQuantity: 121,
-  price: 121,
-}];
+const test = [
+  {
+    _id: "testid",
+    name: "testNamehaha",
+    images: [],
+    quantity: 121,
+    maxQuantity: 121,
+    price: 121,
+  },
+];
 
 // Middleware function to handle raw body..
-function rawBodyMiddleware(req:any, res:any, next:any) {
+function rawBodyMiddleware(req: any, res: any, next: any) {
   let rawBody = "";
   req.setEncoding("utf8");
 
-  req.on("data", function (chunk:any) {
+  req.on("data", function (chunk: any) {
     if (chunk) rawBody += chunk;
   });
 
@@ -32,7 +33,8 @@ function rawBodyMiddleware(req:any, res:any, next:any) {
   });
 }
 
-export async function POST(req:any, res:any) {
+export default async function handler(req: any, res: any) {
+  //nextjs convention , handle incoming req
   if (req.method === "POST") {
     rawBodyMiddleware(req, res, async function () {
       const { rawBody, headers } = req;
@@ -47,9 +49,9 @@ export async function POST(req:any, res:any) {
       );
       console.log("/webhook/payment EVENT===========>: ", parsed.event_type);
       console.log("/webhook/payment VERIFIED=============>: ", verified);
-      
+
       // Create order
-      createOrder(test, 'test@gmail.com');
+      createOrder(test, "test@gmail.com");
 
       // You can add logic to update db qty here
 
@@ -59,14 +61,6 @@ export async function POST(req:any, res:any) {
     res.status(405).end(); // Method Not Allowed
   }
 }
-
-
-
-
-
-
-
-
 
 // testing start above==================
 
@@ -84,7 +78,7 @@ export async function POST(req:any, res:any) {
 //   _id: "testid",
 //   name: "testName",
 //   images: [],
-//   quantity: 121, 
+//   quantity: 121,
 //   maxQuantity: 121,
 //   price: 121,
 // }];
