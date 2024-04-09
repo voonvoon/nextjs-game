@@ -1,5 +1,5 @@
 // pages/api/webhook/payment.js
-import { createOrder } from "@/libs/apis";
+//import { createOrder } from "@/libs/apis";
 const Chip = require("Chip").default;
 
 // Chip set up
@@ -51,7 +51,7 @@ export default async function handler(req: any, res: any) {
       console.log("/webhook/payment VERIFIED=============>: ", verified);
 
       // Create order
-      createOrder(test, "test@gmail.com");
+      //createOrder(test, "test@gmail.com");
 
       // You can add logic to update db qty here
 
