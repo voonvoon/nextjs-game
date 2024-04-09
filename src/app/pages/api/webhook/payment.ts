@@ -55,7 +55,7 @@ export default async function handler(req: any, res: any) {
 
       // You can add logic to update db qty here
 
-      res.end("WEBHOOK OK!");
+      res.end("WEBHOOK OK lah!");
     });
   } else {
     res.status(405).end(); // Method Not Allowed
