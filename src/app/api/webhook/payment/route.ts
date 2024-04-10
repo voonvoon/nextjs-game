@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createOrder, updateGameQuantity } from "@/libs/apis";
+//import { createOrder, updateGameQuantity } from "@/libs/apis";
 const Chip = require("Chip").default;
 
 //Chip set up
@@ -16,7 +16,7 @@ const test = [{
   price: 121,
 }];
 
-export async function POST(req: any, res: any) {
+export async function POST(req:any, res: any) {
   try {
     const { headers } = req;
     
@@ -41,7 +41,7 @@ export async function POST(req: any, res: any) {
         console.log("/webhook/payment VERIFIED=============>: ", verified);
 
         // Create order
-        createOrder(test, 'test@gmail.com');
+        //createOrder(test, 'test@gmail.com');
 
         // Update db qty
 
