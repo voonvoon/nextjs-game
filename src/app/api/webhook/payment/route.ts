@@ -135,7 +135,7 @@ async function getRawBody(readable: Readable): Promise<Buffer> {
 }
 
 // API handler function
-export default async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
+export async function POST(req: NextApiRequest, res: NextApiResponse<any>) {
   const rawBody = await getRawBody(req);
   const { headers } = req;
   const parsed = JSON.parse(Buffer.from(rawBody).toString("utf8"));
