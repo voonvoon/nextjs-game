@@ -16,16 +16,18 @@ async function getRawBody(readable: Readable): Promise<Buffer> {
   return Buffer.concat(chunks);
 }
 
-export async function POST(request: NextApiRequest, response: Response) {
+export async function POST(request: Request, response: Response) {
   try {
     //const text = await request.text()
-    const rawBody = await getRawBody(request);
+    const rawBody = await getRawBody(request as any);
     console.log("raw body for this request is:", rawBody);
     const { headers } = request;
     //const parsed = JSON.parse(rawBody);
     const parsed = JSON.parse(rawBody.toString());
 
-    const xsignature = headers["x-signature"];
+    //const xsignature = headers["x-signature"];
+    const xsignature = (headers as any)["x-signature"];
+
     const publicKey = process.env.webhookPublicKey;
 
     const verified = apiInstance.verify(
@@ -44,7 +46,7 @@ export async function POST(request: NextApiRequest, response: Response) {
     });
   }
 
-  return new Response("Success123!" , {
+  return new Response("Success123!", {
     status: 200,
   });
 }
