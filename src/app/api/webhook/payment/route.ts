@@ -119,11 +119,11 @@ Chip.ApiClient.instance.token = process.env.API_KEY;
 const apiInstance = new Chip.PaymentApi();
 
 // EXPORT config to tell Next.js NOT to parse the body
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+// export const config = {
+//   api: {
+//     bodyParser: false,
+//   },
+// };
 
 // Get raw body as string
 async function getRawBody(readable: Readable): Promise<Buffer> {
