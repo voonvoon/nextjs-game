@@ -24,7 +24,7 @@ export async function POST(request: Request, response: Response) {
     console.log("raw body for this request is:", rawBody);
     const { headers } = request;
     //const parsed = JSON.parse(rawBody);
-    const parsed = JSON.parse(rawBody.toString());
+    const parsed = JSON.parse(rawBody);
 
     //const xsignature = headers["x-signature"];
     const xsignature = (headers as any)["x-signature"];
