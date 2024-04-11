@@ -131,7 +131,7 @@ async function getRawBody(readable: Readable): Promise<Buffer> {
 }
 
 // API handler function
-export default async function handler(req: NextApiRequest, res: NextApiResponse<any>) {
+export async function POST(req: NextApiRequest, res: NextApiResponse<any>) {
   const rawBody = await getRawBody(req);
   console.log('raw body for this request is:', rawBody);
 
