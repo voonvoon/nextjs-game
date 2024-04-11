@@ -8,18 +8,19 @@ Chip.ApiClient.instance.basePath = process.env.ENDPOINT;
 Chip.ApiClient.instance.token = process.env.API_KEY;
 const apiInstance = new Chip.PaymentApi();
 
-async function getRawBody(readable: Readable): Promise<Buffer> {
-  const chunks = [];
-  for await (const chunk of readable) {
-    chunks.push(typeof chunk === "string" ? Buffer.from(chunk) : chunk);
-  }
-  return Buffer.concat(chunks);
-}
+// async function getRawBody(readable: Readable): Promise<Buffer> {
+//   const chunks = [];
+//   for await (const chunk of readable) {
+//     chunks.push(typeof chunk === "string" ? Buffer.from(chunk) : chunk);
+//   }
+//   return Buffer.concat(chunks);
+// }
 
 export async function POST(request: Request, response: Response) {
   try {
     //const text = await request.text()
-    const rawBody = await getRawBody(request as any);
+    //const rawBody = await getRawBody(request as any);
+    const {rawBody} = request as any;
     console.log("raw body for this request is:", rawBody);
     const { headers } = request;
     //const parsed = JSON.parse(rawBody);
