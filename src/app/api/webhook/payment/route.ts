@@ -34,7 +34,7 @@ export async function POST(request: Request, response: Response) {
     const xsignature = request.headers.get("x-signature");
 
 
-    const publicKey = process.env.webhookPublicKey;
+    const publicKey = process.env.WEBHOOK_PUBLIC_KEY;
 
     // const verified = apiInstance.verify(
     //   rawBody,
