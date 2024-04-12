@@ -1,5 +1,5 @@
 //import { NextRequest } from "next/server";
-import { headers } from "next/headers";
+//import { headers } from "next/headers";
 
 import type { Readable } from "node:stream";
 import type { NextApiRequest, NextApiResponse } from "next";
@@ -30,7 +30,9 @@ export async function POST(request: Request, response: Response) {
     const parsed = JSON.parse(rawBody);
 
     //const xsignature = headers["x-signature"];
-    const xsignature = (headers as any)["x-signature"];
+    //const xsignature = (headers as any)["x-signature"];
+    const xsignature = request.headers.get("x-signature");
+
 
     const publicKey = process.env.webhookPublicKey;
 
