@@ -1,5 +1,5 @@
-import { NextRequest } from "next/server";
-import { headers } from "next/headers";
+//import { NextRequest } from "next/server";
+//import { headers } from "next/headers";
 
 import type { Readable } from "node:stream";
 import type { NextApiRequest, NextApiResponse } from "next";
@@ -58,7 +58,7 @@ const apiInstance = new Chip.PaymentApi();
 
 // pages/api/webhook/payment.ts
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     try {
       let rawData = '';
