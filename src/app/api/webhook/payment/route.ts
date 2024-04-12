@@ -58,7 +58,7 @@ const apiInstance = new Chip.PaymentApi();
 
 // pages/api/webhook/payment.ts
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     try {
       let rawData = '';
