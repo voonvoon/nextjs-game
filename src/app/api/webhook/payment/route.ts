@@ -26,7 +26,7 @@ export async function POST(request: NextRequest, response: Response) {
     //const rawBody = await getRawBody(request as any);
     //const {rawBody} = request as any;
     console.log("raw body for this request is:", rawBody);
-    const { headers } = request;
+    //const { headers } = request;
     //const parsed = JSON.parse(rawBody);
     const parsed = JSON.parse(rawBody);
 
