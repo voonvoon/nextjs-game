@@ -30,8 +30,8 @@ export async function POST(request: Request, response: Response) {
     const parsed = JSON.parse(rawBody);
 
     //const xsignature = headers["x-signature"];
-    //const xsignature = (headers as any)["x-signature"];
-    const xsignature = request.headers.get("x-signature");
+    const xsignature = (request.headers as any)["x-signature"];
+    //const xsignature = request.headers.get("x-signature");
     
 
 
@@ -48,7 +48,7 @@ export async function POST(request: Request, response: Response) {
     if (xsignature !== null) {
       const verified = apiInstance.verify(
         rawBody,
-        Buffer.from(xsignature as any, "base64"),
+        Buffer.from(xsignature, "base64"),
         publicKey
       );
       console.log("/webhook/payment EVENT: ", parsed.event_type);
