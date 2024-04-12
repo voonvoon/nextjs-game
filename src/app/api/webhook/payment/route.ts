@@ -1,5 +1,5 @@
-//import { NextRequest } from "next/server";
-import { headers } from "next/headers";
+import { NextRequest } from "next/server";
+//import { headers } from "next/headers";
 
 import type { Readable } from "node:stream";
 import type { NextApiRequest, NextApiResponse } from "next";
@@ -20,19 +20,19 @@ const apiInstance = new Chip.PaymentApi();
 //   return Buffer.concat(chunks);
 // }
 
-export async function POST(request: Request, response: Response) {
+export async function POST(request: NextRequest, response: Response) {
   try {
     const rawBody = await request.text()
     //const rawBody = await getRawBody(request as any);
     //const {rawBody} = request as any;
-    //const { headers } = request;
+    const { headers } = request;
     //const parsed = JSON.parse(rawBody);
     const parsed = JSON.parse(rawBody);
 
     //const xsignature = headers["x-signature"];
-    //const xsignature = (headers as any)["x-signature"];
+    const xsignature = (headers as any)["x-signature"];
     //const xsignature = request.headers.get("x-signature");
-    const xsignature = headers().get("x-signature") as string;
+    //const xsignature = headers().get("x-signature") as string;
 
 
     const publicKey = process.env.WEBHOOK_PUBLIC_KEY;
