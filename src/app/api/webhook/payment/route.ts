@@ -1,7 +1,11 @@
+import { NextRequest } from "next/server";
+import { headers } from "next/headers";
+
 import type { Readable } from "node:stream";
 import type { NextApiRequest, NextApiResponse } from "next";
 const Chip = require("Chip").default;
 // Get raw body as string
+
 
 //Chip set up
 Chip.ApiClient.instance.basePath = process.env.ENDPOINT;
@@ -16,11 +20,11 @@ const apiInstance = new Chip.PaymentApi();
 //   return Buffer.concat(chunks);
 // }
 
-export async function POST(request: Request, response: Response) {
+export async function POST(request: NextRequest, response: Response) {
   try {
-    //const text = await request.text()
+    const rawBody = await request.text()
     //const rawBody = await getRawBody(request as any);
-    const {rawBody} = request as any;
+    //const {rawBody} = request as any;
     console.log("raw body for this request is:", rawBody);
     const { headers } = request;
     //const parsed = JSON.parse(rawBody);
