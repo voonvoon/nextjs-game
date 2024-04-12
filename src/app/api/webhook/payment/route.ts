@@ -36,14 +36,26 @@ export async function POST(request: Request, response: Response) {
 
     const publicKey = process.env.webhookPublicKey;
 
-    const verified = apiInstance.verify(
-      rawBody,
-      Buffer.from(xsignature as any, "base64"),
-      publicKey
-    );
+    // const verified = apiInstance.verify(
+    //   rawBody,
+    //   Buffer.from(xsignature as any, "base64"),
+    //   publicKey
+    // );
 
-    console.log("/webhook/payment EVENT: ", parsed.event_type);
-    console.log("/webhook/payment VERIFIED: ", verified);
+    // console.log("/webhook/payment EVENT: ", parsed.event_type);
+    // console.log("/webhook/payment VERIFIED: ", verified);
+    if (xsignature !== null) {
+      const verified = apiInstance.verify(
+        rawBody,
+        Buffer.from(xsignature as any, "base64"),
+        publicKey
+      );
+      console.log("/webhook/payment EVENT: ", parsed.event_type);
+      console.log("/webhook/payment VERIFIED: ", verified);
+    } else {
+      console.log("X-Signature header is null");
+    }
+    
 
     // Process the webhook payload
   } catch (error) {
