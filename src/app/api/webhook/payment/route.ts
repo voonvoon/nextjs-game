@@ -54,6 +54,7 @@ export async function POST(request: Request, response: Response) {
       );
       console.log("/webhook/payment EVENT: ", parsed.event_type);
       console.log("/webhook/payment VERIFIED: ", verified);
+      console.log("i want see how signature looks like :)",  xsignature);
     } else {
       console.log("X-Signature header is null");
     }
