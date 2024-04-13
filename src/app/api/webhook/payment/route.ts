@@ -57,6 +57,7 @@ export async function POST(request: Request, response: Response) {
     // Create order
     if (parsed.event_type === "purchase.paid") {
       createOrder(testProductCreate, "test@gmail.com");
+      console.log("yay!order Created=====>", parsed.event_type);
     }
   } catch (error) {
     return new Response(`Webhook error: ${error}`, {
