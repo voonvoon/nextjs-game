@@ -8,6 +8,7 @@ const apiInstance = new Chip.PaymentApi();
 
 const testProductCreate = [
   {
+    _key: "847aa179-c68b-4f15-866c-302a1ab1809a",
     _id: "847aa179-c68b-4f15-866c-302a1ab1809a",
     name: "game of thrones",
     images: [
