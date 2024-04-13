@@ -1,24 +1,44 @@
 const Chip = require("Chip").default;
+import { createOrder } from "@/libs/apis";
 
 //Chip set up
 Chip.ApiClient.instance.basePath = process.env.ENDPOINT;
 Chip.ApiClient.instance.token = process.env.API_KEY;
 const apiInstance = new Chip.PaymentApi();
 
+const testProductCreate = [
+  {
+    _id: "testid123456",
+    name: "testNameOnly",
+    images: [],
+    quantity: 121,
+    maxQuantity: 121,
+    price: 121,
+  },
+  {
+    _id: "testid22123456",
+    name: "testName2Only",
+    images: [],
+    quantity: 122,
+    maxQuantity: 122,
+    price: 122,
+  },
+];
+
 export async function POST(request: Request, response: Response) {
   try {
-    const rawBody = await request.text();
+    const rawBody = await request.text(); // get the rawbody jz like this in nextjs , unlike need to make middleware in express
     const parsed = JSON.parse(rawBody);
-    const seeHeaders = request.headers;
+    //const seeHeaders = request.headers;
     const xsignature = request.headers.get("x-signature");
-   
-
     const publicKey = process.env.WEBHOOK_PUBLIC_KEY;
+
     if (xsignature !== null) {
-      const curiousBuffer = Buffer.from(xsignature, "base64") //curious see what inside
+      //const curiousBuffer = Buffer.from(xsignature, "base64") //curious see what inside
       const verified = apiInstance.verify(
-        rawBody,
-        Buffer.from(xsignature, "base64"),
+        //it'll return true/false
+        rawBody, // it use rawBody here not parsed
+        Buffer.from(xsignature, "base64"), //decodes the base64-encoded string stored in xsignature into its binary representation
         publicKey
       );
       console.log("/webhook/payment EVENT ===> ", parsed.event_type);
@@ -26,15 +46,18 @@ export async function POST(request: Request, response: Response) {
       console.log("i want see how signature looks like ===>", xsignature);
       console.log("love to see what inside parse ===>", parsed);
       console.log("love to see what inside rawBody ===>", rawBody);
-      console.log("love to see what inside headers ===>", seeHeaders);
-      console.log("love to see what inside: Buffer.from(xsignature,`base64`) ===>", curiousBuffer);
-      
-      
+      //console.log("love to see what inside headers ===>", seeHeaders);
+      //console.log("love to see what inside: Buffer.from(xsignature,`base64`) ===>", curiousBuffer);
     } else {
       console.log("X-Signature header is null");
     }
 
     // Process the webhook payload
+
+    // Create order
+    if (parsed.event_type === "purchase.paid") {
+      createOrder(testProductCreate, "test@gmail.com");
+    }
   } catch (error) {
     return new Response(`Webhook error: ${error}`, {
       status: 400,
