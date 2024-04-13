@@ -8,21 +8,18 @@ const apiInstance = new Chip.PaymentApi();
 
 const testProductCreate = [
   {
-    _id: "testid123456",
-    name: "testNameOnly",
-    images: [],
-    quantity: 121,
-    maxQuantity: 121,
+    _id: "847aa179-c68b-4f15-866c-302a1ab1809a",
+    name: "game of thrones",
+    images: [
+      {
+        "_key": "b8dc70d5cbce",
+        "url": "https://images.unsplash.com/photo-1507388644107-ce16cdf15eba?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      }
+    ],
+    quantity: 1,
+    maxQuantity: 120,
     price: 121,
-  },
-  {
-    _id: "testid22123456",
-    name: "testName2Only",
-    images: [],
-    quantity: 122,
-    maxQuantity: 122,
-    price: 122,
-  },
+  }
 ];
 
 export async function POST(request: Request, response: Response) {
