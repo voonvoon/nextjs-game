@@ -179,7 +179,11 @@ export const createOrder2 = async (games: GameSubset2[], userEmail: string) => {
           products: games.map((game, idx) => ({
             name: game.name,
             price: game.price,
+            category: game.category,
+            discount:game.discount,
             quantity: game.quantity,
+            tax_percent:game.tax_percent
+
           })),
           //products:games,
           userEmail,
@@ -195,6 +199,7 @@ export const createOrder2 = async (games: GameSubset2[], userEmail: string) => {
   );
 
   return data;
+
 };
 
 export async function fetchOrder(userEmail: string) {

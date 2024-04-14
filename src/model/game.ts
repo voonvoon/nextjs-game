@@ -23,5 +23,8 @@ export type GameSubset = Pick<
 export interface GameSubset2 {
 	name: string;
 	price: number;
-	quantity: number;
+	category:string;
+	discount:number;
+	quantity: string;
+	tax_percent: string;
 }
