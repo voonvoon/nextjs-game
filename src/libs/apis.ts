@@ -1,5 +1,5 @@
 import { Category } from "@/model/category";
-import { Game, GameSubset } from "@/model/game";
+import { Game, GameSubset, GameSubset2 } from "@/model/game";
 import sanityClient from "./sanity";
 import axios from "axios";
 
@@ -170,6 +170,37 @@ export const createOrder = async (games: GameSubset[], userEmail: string) => {
   return data;
 };
 
+export const createOrder2 = async (games: GameSubset2[], userEmail: string) => {
+  const mutation = {
+    mutations: [
+      {
+        create: {
+          _type: "order2",
+          products: games.map((game, idx) => ({
+           // _type: "orderItem",
+            // game: {
+            //   _key: idx,
+            //   _type: "reference",
+            //   _ref: game._id,
+            // },
+            name: game.name,
+            price: game.price,
+            quantity: game.quantity,
+          })),
+          userEmail,
+          orderStatus: "pending",
+        },
+      },
+    ],
+  };
+  const { data } = await axios.post(
+    `https://${process.env.NEXT_PUBLIC_SANITY_STUDIO_PROJECT_ID}.api.sanity.io/v2022-12-07/data/mutate/${process.env.NEXT_PUBLIC_SANITY_STUDIO_DATASET}`,
+    mutation,
+    { headers: { Authorization: `Bearer ${process.env.SANITY_TOKEN}` } }
+  );
+
+  return data;
+};
 
 export async function fetchOrder(userEmail: string) {
 	const query = `*[_type == "order" && userEmail == $userEmail] {

@@ -1,5 +1,5 @@
 const Chip = require("Chip").default;
-import { createOrder } from "@/libs/apis";
+import { createOrder, createOrder2 } from "@/libs/apis";
 
 //Chip set up
 Chip.ApiClient.instance.basePath = process.env.ENDPOINT;
@@ -55,7 +55,7 @@ export async function POST(request: Request, response: Response) {
 
     // Create order
     if (parsed.event_type === "purchase.paid") {
-      createOrder(testProductCreate, "test@gmail.com");
+      createOrder2(parsed.purchase.products, "test123@gmail.com");
       console.log("yay!order Created=====>", parsed.event_type);
     }
   } catch (error) {
