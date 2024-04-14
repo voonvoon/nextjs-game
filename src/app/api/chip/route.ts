@@ -48,7 +48,7 @@ export async function POST(req: Request, res: Response) {
     purchase: details,
     success_redirect: `${process.env.BASE_URL}/redirect/payment_success`,
     failure_redirect: `${process.env.BASE_URL}/redirect/payment_fialed`,
-    success_callback: `${process.env.BASE_URL}/api/webhook/payment`,
+    success_callback: `${process.env.BASE_URL}/api/callback`,
   };
 
   try {
