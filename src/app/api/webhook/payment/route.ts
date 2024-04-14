@@ -43,6 +43,8 @@ export async function POST(request: Request, response: Response) {
       console.log("i want see how signature looks like ===>", xsignature);
       console.log("love to see what inside parse ===>", parsed);
       console.log("love to see what inside rawBody ===>", rawBody);
+      console.log(" Products ++++===>", parsed.purchase.products);
+      
       //console.log("love to see what inside headers ===>", seeHeaders);
       //console.log("love to see what inside: Buffer.from(xsignature,`base64`) ===>", curiousBuffer);
     } else {

@@ -24,22 +24,25 @@ export async function POST(req: Request, res: Response) {
   //make [{product},{product}..]to match chip payment gateway from updatedItems
   const productsForChipIn = updatedItems.map((item) => {
     return {
+      _id: item._id,
       name: item.name,
-      price: item.price * 100,  //chip need *100
+      images: item.images,
       quantity: item.quantity,
+      maxQuantity: item.quantity,
+      price: item.price * 100,
     };
   });
 
   //console.log("see formatted products for chip====>", productsForChipIn);
 
-  const client = { email: userEmail || 'test@gmail.com' };
+  const client = { email: userEmail || "test@gmail.com" };
   const details = {
     // products: [
     //   { name: "Test", price: 100, quantity: 3, discount: 50 },
     //   { name: "Test2", price: 100, quantity: 3 },
     //   { name: "Test3", price: 300, quantity: 3 },
     // ],
-    products:productsForChipIn
+    products: productsForChipIn,
   };
 
   const purchase = {
@@ -101,7 +104,7 @@ async function fetchAndCalculateItemPricesAndQuantity(cartItems: Game[]) {
 
     const updatedItems: GameSubset[] = sanityItems.map((item) => ({
       ...item,
-      maxQuantity: item.quantity, 
+      maxQuantity: item.quantity,
     }));
 
     // check quantity
