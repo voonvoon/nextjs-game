@@ -55,7 +55,7 @@ export async function POST(request: Request, response: Response) {
 
     // Create order
     if (parsed.event_type === "purchase.paid") {
-      createOrder2(parsed.purchase.products, "test123@gmail.com");
+      createOrder2(parsed.purchase.products, "test1233221@gmail.com");
       console.log("yay!order Created=====>", parsed.event_type);
     }
   } catch (error) {
