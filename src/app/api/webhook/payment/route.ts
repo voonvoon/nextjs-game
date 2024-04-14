@@ -54,10 +54,19 @@ export async function POST(request: Request, response: Response) {
     // Process the webhook payload
 
     // Create order
+    // if (parsed.event_type === "purchase.paid") {
+    //   createOrder2(parsed.purchase.products, parsed.client.email);
+    //   console.log("yay!order Created=====>", parsed.event_type);
+    // }
     if (parsed.event_type === "purchase.paid") {
-      createOrder2(parsed.purchase.products, parsed.client.email);
-      console.log("yay!order Created=====>", parsed.event_type);
+      if (parsed.purchase && Array.isArray(parsed.purchase.products) && parsed.client && parsed.client.email) {
+        createOrder2(parsed.purchase.products, parsed.client.email);
+        console.log("yay!order Created=====>", parsed.event_type);
+      } else {
+        console.log("Missing required data for creating order.");
+      }
     }
+    
   } catch (error) {
     return new Response(`Webhook error: ${error}`, {
       status: 400,
