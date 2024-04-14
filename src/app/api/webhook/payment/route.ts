@@ -58,10 +58,26 @@ export async function POST(request: Request, response: Response) {
     //   createOrder2(parsed.purchase.products, parsed.client.email);
     //   console.log("yay!order Created=====>", parsed.event_type);
     // }
+
+    // if (parsed.event_type === "purchase.paid") {
+    //   if (parsed.purchase && Array.isArray(parsed.purchase.products) && parsed.client && parsed.client.email) {
+    //     createOrder2(parsed.purchase.products, parsed.client.email);
+    //     console.log("yay!order Created=====>", parsed.event_type);
+    //   } else {
+    //     console.log("Missing required data for creating order.");
+    //   }
+    // }
+    
     if (parsed.event_type === "purchase.paid") {
       if (parsed.purchase && Array.isArray(parsed.purchase.products) && parsed.client && parsed.client.email) {
-        createOrder2(parsed.purchase.products, parsed.client.email);
-        console.log("yay!order Created=====>", parsed.event_type);
+        createOrder2(parsed.purchase.products, parsed.client.email)
+          .then((data) => {
+            console.log("Order Created:", data);
+            console.log("yay!order Created=====>", parsed.event_type);
+          })
+          .catch((error) => {
+            console.error("Error creating order:", error);
+          });
       } else {
         console.log("Missing required data for creating order.");
       }
