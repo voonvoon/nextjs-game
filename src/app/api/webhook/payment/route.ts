@@ -45,27 +45,20 @@ export async function POST(request: Request, response: Response) {
       console.log("love to see what inside rawBody ===>", rawBody);
       console.log(" Products ++++===>", parsed.purchase.products);
 
-      // if (parsed.event_type === "purchase.paid") {
-      //   if (parsed.purchase && Array.isArray(parsed.purchase.products) && parsed.client && parsed.client.email) {
-      //     createOrder2(parsed.purchase.products, parsed.client.email)
-      //       .then((data) => {
-      //         console.log("Order Created:", data);
-      //         console.log("yay!order Created=====>", parsed.event_type);
-      //       })
-      //       .catch((error) => {
-      //         console.error("Error creating order:", error);
-      //       });
-      //   } else {
-      //     console.log("Missing required data for creating order.");
-      //   }
-      // }
-
       if (parsed.event_type === "purchase.paid") {
-        if (parsed.purchase && Array.isArray(parsed.purchase.products) && parsed.client && parsed.client.email) {
+        if (
+          parsed.purchase &&
+          Array.isArray(parsed.purchase.products) &&
+          parsed.client &&
+          parsed.client.email
+        ) {
           try {
-            const data = await createOrder2(parsed.purchase.products, parsed.client.email);
-            console.log("Order Created:", data);
-            console.log("yay!order Created=====>", parsed.event_type);
+            const data = await createOrder2(
+              parsed.purchase.products,
+              parsed.client.email
+            ); // is asyn func , add await is important else result not consistent
+
+            console.log("yay!order Created=====>", data);
           } catch (error) {
             console.error("Error creating order:", error);
           }
@@ -73,32 +66,12 @@ export async function POST(request: Request, response: Response) {
           console.log("Missing required data for creating order.");
         }
       }
-      
+
       //console.log("love to see what inside headers ===>", seeHeaders);
       //console.log("love to see what inside: Buffer.from(xsignature,`base64`) ===>", curiousBuffer);
     } else {
       console.log("X-Signature header is null");
     }
-
-    // Process the webhook payload
-
-    // Create order
-    // if (parsed.event_type === "purchase.paid") {
-    //   createOrder2(parsed.purchase.products, parsed.client.email);
-    //   console.log("yay!order Created=====>", parsed.event_type);
-    // }
-
-    // if (parsed.event_type === "purchase.paid") {
-    //   if (parsed.purchase && Array.isArray(parsed.purchase.products) && parsed.client && parsed.client.email) {
-    //     createOrder2(parsed.purchase.products, parsed.client.email);
-    //     console.log("yay!order Created=====>", parsed.event_type);
-    //   } else {
-    //     console.log("Missing required data for creating order.");
-    //   }
-    // }
-    
-  
-    
   } catch (error) {
     return new Response(`Webhook error: ${error}`, {
       status: 400,

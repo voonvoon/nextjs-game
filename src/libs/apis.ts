@@ -182,8 +182,8 @@ export const createOrder2 = async (games: GameSubset2[], userEmail: string) => {
             category: game.category,
             discount:game.discount,
             quantity: game.quantity,
-            tax_percent:game.tax_percent
-
+            tax_percent:game.tax_percent,
+            _key: idx
           })),
           //products:games,
           userEmail,
