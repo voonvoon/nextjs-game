@@ -6,21 +6,21 @@ Chip.ApiClient.instance.basePath = process.env.ENDPOINT;
 Chip.ApiClient.instance.token = process.env.API_KEY;
 const apiInstance = new Chip.PaymentApi();
 
-const testProductCreate = [
-  {
-    _id: "847aa179-c68b-4f15-866c-302a1ab1809a",
-    name: "game of thrones",
-    images: [
-      {
-        "_key": "b8dc70d5cbce",
-        "url": "https://images.unsplash.com/photo-1507388644107-ce16cdf15eba?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-      }
-    ],
-    quantity: 1,
-    maxQuantity: 120,
-    price: 121,
-  }
-];
+// const testProductCreate = [
+//   {
+//     _id: "847aa179-c68b-4f15-866c-302a1ab1809a",
+//     name: "game of thrones",
+//     images: [
+//       {
+//         "_key": "b8dc70d5cbce",
+//         "url": "https://images.unsplash.com/photo-1507388644107-ce16cdf15eba?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+//       }
+//     ],
+//     quantity: 1,
+//     maxQuantity: 120,
+//     price: 121,
+//   }
+// ];
 
 export async function POST(request: Request, response: Response) {
   try {
@@ -44,6 +44,21 @@ export async function POST(request: Request, response: Response) {
       console.log("love to see what inside parse ===>", parsed);
       console.log("love to see what inside rawBody ===>", rawBody);
       console.log(" Products ++++===>", parsed.purchase.products);
+
+      if (parsed.event_type === "purchase.paid") {
+        if (parsed.purchase && Array.isArray(parsed.purchase.products) && parsed.client && parsed.client.email) {
+          createOrder2(parsed.purchase.products, parsed.client.email)
+            .then((data) => {
+              console.log("Order Created:", data);
+              console.log("yay!order Created=====>", parsed.event_type);
+            })
+            .catch((error) => {
+              console.error("Error creating order:", error);
+            });
+        } else {
+          console.log("Missing required data for creating order.");
+        }
+      }
       
       //console.log("love to see what inside headers ===>", seeHeaders);
       //console.log("love to see what inside: Buffer.from(xsignature,`base64`) ===>", curiousBuffer);
@@ -68,20 +83,7 @@ export async function POST(request: Request, response: Response) {
     //   }
     // }
     
-    if (parsed.event_type === "purchase.paid") {
-      if (parsed.purchase && Array.isArray(parsed.purchase.products) && parsed.client && parsed.client.email) {
-        createOrder2(parsed.purchase.products, parsed.client.email)
-          .then((data) => {
-            console.log("Order Created:", data);
-            console.log("yay!order Created=====>", parsed.event_type);
-          })
-          .catch((error) => {
-            console.error("Error creating order:", error);
-          });
-      } else {
-        console.log("Missing required data for creating order.");
-      }
-    }
+  
     
   } catch (error) {
     return new Response(`Webhook error: ${error}`, {
