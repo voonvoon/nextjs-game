@@ -177,13 +177,13 @@ export const createOrder2 = async (games: GameSubset2[], userEmail: string) => {
         create: {
           _type: "order2",
           products: games.map((game, idx) => ({
+            _key: `product_${idx + 1}`,
             name: game.name,
             price: game.price,
             category: game.category,
             discount:game.discount,
             quantity: game.quantity,
             tax_percent:game.tax_percent,
-            key: idx
           })),
           //products:games,
           userEmail,
