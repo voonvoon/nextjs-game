@@ -45,16 +45,30 @@ export async function POST(request: Request, response: Response) {
       console.log("love to see what inside rawBody ===>", rawBody);
       console.log(" Products ++++===>", parsed.purchase.products);
 
+      // if (parsed.event_type === "purchase.paid") {
+      //   if (parsed.purchase && Array.isArray(parsed.purchase.products) && parsed.client && parsed.client.email) {
+      //     createOrder2(parsed.purchase.products, parsed.client.email)
+      //       .then((data) => {
+      //         console.log("Order Created:", data);
+      //         console.log("yay!order Created=====>", parsed.event_type);
+      //       })
+      //       .catch((error) => {
+      //         console.error("Error creating order:", error);
+      //       });
+      //   } else {
+      //     console.log("Missing required data for creating order.");
+      //   }
+      // }
+
       if (parsed.event_type === "purchase.paid") {
         if (parsed.purchase && Array.isArray(parsed.purchase.products) && parsed.client && parsed.client.email) {
-          createOrder2(parsed.purchase.products, parsed.client.email)
-            .then((data) => {
-              console.log("Order Created:", data);
-              console.log("yay!order Created=====>", parsed.event_type);
-            })
-            .catch((error) => {
-              console.error("Error creating order:", error);
-            });
+          try {
+            const data = await createOrder2(parsed.purchase.products, parsed.client.email);
+            console.log("Order Created:", data);
+            console.log("yay!order Created=====>", parsed.event_type);
+          } catch (error) {
+            console.error("Error creating order:", error);
+          }
         } else {
           console.log("Missing required data for creating order.");
         }
