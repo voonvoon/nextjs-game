@@ -1,7 +1,7 @@
 import sanityClient from "@/libs/sanity";
 import { Game, GameSubset } from "@/model/game";
 import { NextResponse } from "next/server";
-//import { createOrder, updateGameQuantity } from "@/libs/apis";
+import { createOrder, updateGameQuantity } from "@/libs/apis";
 const Chip = require("Chip").default;
 
 export async function POST(req: Request, res: Response) {
@@ -67,6 +67,7 @@ export async function POST(req: Request, res: Response) {
           reject(error);
         } else {
           resolve(data);
+          createOrder(updatedItems, userEmail || "test@gmail.com");
         }
       });
     });
