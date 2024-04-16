@@ -43,11 +43,11 @@ export async function POST(req: Request, res: Response) {
     //   { name: "Test3", price: 300, quantity: 3 },
     // ],
     products: productsForChipIn,
-    cart_id: 'testing123321'
   };
 
   const purchase = {
     brand_id: process.env.BRAND_ID,
+    order_id: "testing123fororder_id",
     client: client,
     purchase: details,
     success_redirect: `${process.env.BASE_URL}/redirect/payment_success`,
