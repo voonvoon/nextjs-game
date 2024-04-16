@@ -21,11 +21,25 @@ export async function POST(req: Request, res: Response) {
 
   console.log("updatedItems=====>", updatedItems);
 
+  // create order after user click checkout
+  try {
+    const data = await createOrder(
+      updatedItems,
+      userEmail || "testingemail@gmail.com"
+    ); // is asyn func , add await is important else result not consistent
+
+    console.log("yay!order Created=====>", data);
+  } catch (error) {
+    console.error("Error creating order:", error);
+  }
+
+  
+
   //make [{product},{product}..]to match chip payment gateway from updatedItems
   const productsForChipIn = updatedItems.map((item) => {
     return {
       _id: item._id,
-      category:item._id,
+      category: item._id,
       name: item.name,
       images: item.images,
       quantity: item.quantity,
@@ -44,12 +58,12 @@ export async function POST(req: Request, res: Response) {
     //   { name: "Test3", price: 300, quantity: 3 },
     // ],
     products: productsForChipIn,
-    notes: "testing123fororder_id" // useful to put cart_id so webhook can use to fetch data from db
+    notes: "testing123fororder_id", // useful to put cart_id so webhook can use to fetch data from db
   };
 
   const purchase = {
     brand_id: process.env.BRAND_ID,
-    reference: "testing123fororder_id",// useful to put cart_id so webhook can use to fetch data from db
+    reference: "testing123fororder_id", // useful to put cart_id so webhook can use to fetch data from db
     client: client,
     purchase: details,
     success_redirect: `${process.env.BASE_URL}/redirect/payment_success`,
@@ -67,7 +81,7 @@ export async function POST(req: Request, res: Response) {
           reject(error);
         } else {
           resolve(data);
-          createOrder(updatedItems, userEmail || "test@gmail.com");
+          //createOrder(updatedItems, userEmail || "test@gmail.com");
         }
       });
     });
