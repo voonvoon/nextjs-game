@@ -154,6 +154,7 @@ export const createOrder = async (games: GameSubset[], userEmail: string) => {
               _ref: game._id,
             },
             quantity: game.quantity,
+            _key:  `item_${idx + 1}`
           })),
           userEmail,
           orderStatus: "pending",
