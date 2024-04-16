@@ -149,7 +149,7 @@ export const createOrder = async (games: GameSubset[], userEmail: string) => {
           items: games.map((game, idx) => ({
            // _type: "orderItem",
             game: {
-              _key: idx,
+              _key: `product_${idx + 1}`,
               _type: "reference",
               _ref: game._id,
             },
@@ -177,7 +177,7 @@ export const createOrder2 = async (games: GameSubset2[], userEmail: string) => {
         create: {
           _type: "order2",
           products: games.map((game, idx) => ({
-            _key: `product_${idx + 1}`,
+            _key: `product_${idx + 1}`,  // Add this to avoid sanity.io complaint about no _key
             name: game.name,
             price: game.price,
             category: game.category,

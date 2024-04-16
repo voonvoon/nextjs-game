@@ -43,6 +43,7 @@ export async function POST(req: Request, res: Response) {
     //   { name: "Test3", price: 300, quantity: 3 },
     // ],
     products: productsForChipIn,
+    cart_id: 'testing123321'
   };
 
   const purchase = {
