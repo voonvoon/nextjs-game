@@ -258,17 +258,20 @@ export async function fetchOrderInWebhook(id: string) {
 }
 
 //update paid to true:
-
 export const markOrderAsPaid = async (orderId: string) => {
   try {
     // Define the mutation to update the paid field
     const mutation = {
-      patch: {
-        id: orderId,
-        set: {
-          paid: true,
+      mutations: [
+        {
+          patch: {
+            id: orderId,
+            set: {
+              paid: true,
+            },
+          },
         },
-      },
+      ],
     };
 
     // Execute the mutation
@@ -283,4 +286,30 @@ export const markOrderAsPaid = async (orderId: string) => {
     console.error("Error marking order as paid:", error.message);
   }
 };
+
+
+// export const markOrderAsPaid = async (orderId: string) => {
+//   try {
+//     // Define the mutation to update the paid field
+//     const mutation = {
+//       patch: {
+//         id: orderId,
+//         set: {
+//           paid: true,
+//         },
+//       },
+//     };
+
+//     // Execute the mutation
+//     const { data } = await axios.post(
+//       `https://${process.env.NEXT_PUBLIC_SANITY_STUDIO_PROJECT_ID}.api.sanity.io/v2022-12-07/data/mutate/${process.env.NEXT_PUBLIC_SANITY_STUDIO_DATASET}`,
+//       mutation,
+//       { headers: { Authorization: `Bearer ${process.env.SANITY_TOKEN}` } }
+//     );
+
+//     return data;
+//   } catch (error: any) {
+//     console.error("Error marking order as paid:", error.message);
+//   }
+// };
 
