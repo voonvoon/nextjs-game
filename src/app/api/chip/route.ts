@@ -26,9 +26,6 @@ export async function POST(req: Request, res: Response) {
     updatedItems,
     userEmail || "testingemail@gmail.com"
   ); // is asyn func , add await is important else result not consistent
-
-  
-
   console.log("yay!order Created after click checkout=====>", dataCreateOrder);
 
   //make [{product},{product}..]to match chip payment gateway from updatedItems

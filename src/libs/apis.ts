@@ -147,14 +147,14 @@ export const createOrder = async (games: GameSubset[], userEmail: string) => {
         create: {
           _type: "order",
           items: games.map((game, idx) => ({
-           // _type: "orderItem",
+            // _type: "orderItem",
             game: {
               _key: `product_${idx + 1}`,
               _type: "reference",
               _ref: game._id,
             },
             quantity: game.quantity,
-            _key:  `item_${idx + 1}`
+            _key: `item_${idx + 1}`,
           })),
           userEmail,
           orderStatus: "pending",
@@ -178,13 +178,13 @@ export const createOrder2 = async (games: GameSubset2[], userEmail: string) => {
         create: {
           _type: "order2",
           products: games.map((game, idx) => ({
-            _key: `product_${idx + 1}`,  // Add this to avoid sanity.io complaint about no _key
+            _key: `product_${idx + 1}`, // Add this to avoid sanity.io complaint about no _key
             name: game.name,
             price: game.price,
             category: game.category,
-            discount:game.discount,
+            discount: game.discount,
             quantity: game.quantity,
-            tax_percent:game.tax_percent,
+            tax_percent: game.tax_percent,
           })),
           //products:games,
           userEmail,
@@ -200,11 +200,10 @@ export const createOrder2 = async (games: GameSubset2[], userEmail: string) => {
   );
 
   return data;
-
 };
 
 export async function fetchOrder(userEmail: string) {
-	const query = `*[_type == "order" && userEmail == $userEmail] {
+  const query = `*[_type == "order" && userEmail == $userEmail] {
     _id,
     items[] {
       _key,
@@ -224,8 +223,36 @@ export async function fetchOrder(userEmail: string) {
     createdAt
   }`;
 
-	const params = { userEmail };
-	const result: any = await sanityClient.fetch({ query, params });
+  const params = { userEmail };
+  const result: any = await sanityClient.fetch({ query, params });
 
-	return result;
+  return result;
+}
+
+//fetch order in webhook
+export async function fetchOrderInWebhook(id: string) {
+  const query = `*[_type == "order" && _rev == $id] {
+    _id,
+    items[] {
+      _key,
+      quantity,
+      game -> {
+        _id,
+        name,
+        price,
+        images,
+        slug {
+          current
+        },
+        description
+      }
+    },
+    orderStatus,
+    createdAt
+  }`;
+
+  const params = { id };
+  const result: any = await sanityClient.fetch({ query, params });
+
+  return result;
 }

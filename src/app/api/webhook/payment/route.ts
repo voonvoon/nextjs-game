@@ -1,5 +1,5 @@
 const Chip = require("Chip").default;
-import { createOrder, createOrder2 } from "@/libs/apis";
+import { createOrder, createOrder2 , fetchOrderInWebhook} from "@/libs/apis";
 
 //Chip set up
 Chip.ApiClient.instance.basePath = process.env.ENDPOINT;
@@ -45,26 +45,30 @@ export async function POST(request: Request, response: Response) {
       console.log("love to see what inside rawBody ===>", rawBody);
       console.log(" Products ++++===>", parsed.purchase.products);
 
-      if (parsed.event_type === "purchase.paid") {
-        if (
-          parsed.purchase &&
-          Array.isArray(parsed.purchase.products) &&
-          parsed.client &&
-          parsed.client.email
-        ) {
-          try {
-            const data = await createOrder2(
-              parsed.purchase.products,
-              parsed.client.email
-            ); // is asyn func , add await is important else result not consistent
+      // if (parsed.event_type === "purchase.paid") {
+      //   if (
+      //     parsed.purchase &&
+      //     Array.isArray(parsed.purchase.products) &&
+      //     parsed.client &&
+      //     parsed.client.email
+      //   ) {
+      //     try {
+      //       const data = await createOrder2(
+      //         parsed.purchase.products,
+      //         parsed.client.email
+      //       ); // is asyn func , add await is important else result not consistent
 
-            console.log("yay!order Created=====>", data);
-          } catch (error) {
-            console.error("Error creating order:", error);
-          }
-        } else {
-          console.log("Missing required data for creating order.");
-        }
+      //       console.log("yay!order Created=====>", data);
+      //     } catch (error) {
+      //       console.error("Error creating order:", error);
+      //     }
+      //   } else {
+      //     console.log("Missing required data for creating order.");
+      //   }
+      // }
+      if (parsed.event_type === "purchase.paid") {
+        const orderData = await fetchOrderInWebhook(parsed.reference);
+        console.log("Order fetched in webhook ===>", orderData)
       }
 
       //console.log("love to see what inside headers ===>", seeHeaders);
