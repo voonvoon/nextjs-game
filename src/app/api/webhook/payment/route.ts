@@ -75,7 +75,7 @@ export async function POST(request: Request, response: Response) {
         const orderData = await fetchOrderInWebhook(parsed.reference);
         console.log("Order fetched in webhook ===>", orderData);
 
-        const updatedToPaid = await markOrderAsPaid(orderData._id);
+        const updatedToPaid = await markOrderAsPaid(orderData[0]._id);
         console.log("updatedToPaid===>", updatedToPaid);
       }
 
