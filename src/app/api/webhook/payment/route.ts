@@ -1,5 +1,10 @@
 const Chip = require("Chip").default;
-import { createOrder, createOrder2 , fetchOrderInWebhook} from "@/libs/apis";
+import {
+  createOrder,
+  createOrder2,
+  fetchOrderInWebhook,
+  markOrderAsPaid,
+} from "@/libs/apis";
 
 //Chip set up
 Chip.ApiClient.instance.basePath = process.env.ENDPOINT;
@@ -68,7 +73,10 @@ export async function POST(request: Request, response: Response) {
       // }
       if (parsed.event_type === "purchase.paid") {
         const orderData = await fetchOrderInWebhook(parsed.reference);
-        console.log("Order fetched in webhook ===>", orderData)
+        console.log("Order fetched in webhook ===>", orderData);
+
+        const updatedToPaid = await markOrderAsPaid(orderData._id);
+        console.log("updatedToPaid===>", updatedToPaid);
       }
 
       //console.log("love to see what inside headers ===>", seeHeaders);
