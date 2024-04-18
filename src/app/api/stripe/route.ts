@@ -44,7 +44,7 @@ export async function POST(req: Request, res: Response) {
     });
 
     //update qty in sanity
-    await updateGameQuantity(updatedItems);
+    //await updateGameQuantity(updatedItems);
 
     //Create an order in sanity
 
