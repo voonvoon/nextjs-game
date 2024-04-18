@@ -82,7 +82,8 @@ export async function POST(request: Request, response: Response) {
 
         //update game quantity
 
-        updateGameQuantity(orderData.items);
+        const updatedQty = updateGameQuantity(orderData[0].items);
+        console.log("updatedQty????===>", updatedQty);
       }
 
       if (parsed.event_type === "purchase.payment_failure") {
