@@ -3,6 +3,8 @@ import { Game, GameSubset, GameSubset2 } from "@/model/game";
 import sanityClient from "./sanity";
 import axios from "axios";
 
+
+
 export const getCategories = async (): Promise<Category[]> => {
   const query = `*[_type == "category"] {
         _id,
@@ -154,6 +156,7 @@ export const createOrder = async (games: GameSubset[], userEmail: string) => {
               _ref: game._id,
             },
             quantity: game.quantity,
+            maxQuantity:game.images, // add this
             _key: `item_${idx + 1}`,
           })),
           userEmail,
@@ -288,28 +291,32 @@ export const markOrderAsPaid = async (orderId: string) => {
 };
 
 
-// export const markOrderAsPaid = async (orderId: string) => {
-//   try {
-//     // Define the mutation to update the paid field
-//     const mutation = {
-//       patch: {
-//         id: orderId,
-//         set: {
-//           paid: true,
-//         },
-//       },
-//     };
+//delete if payment failed
+export const deleteOrder = async (orderId: string) => {
+  try {
+    // Define the mutation to delete the order
+    const mutation = {
+      mutations: [
+        {
+          delete: {
+            id: orderId,
+          },
+        },
+      ],
+    };
 
-//     // Execute the mutation
-//     const { data } = await axios.post(
-//       `https://${process.env.NEXT_PUBLIC_SANITY_STUDIO_PROJECT_ID}.api.sanity.io/v2022-12-07/data/mutate/${process.env.NEXT_PUBLIC_SANITY_STUDIO_DATASET}`,
-//       mutation,
-//       { headers: { Authorization: `Bearer ${process.env.SANITY_TOKEN}` } }
-//     );
+    // Execute the mutation
+    const { data } = await axios.post(
+      `https://${process.env.NEXT_PUBLIC_SANITY_STUDIO_PROJECT_ID}.api.sanity.io/v2022-12-07/data/mutate/${process.env.NEXT_PUBLIC_SANITY_STUDIO_DATASET}`,
+      mutation,
+      { headers: { Authorization: `Bearer ${process.env.SANITY_TOKEN}` } }
+    );
 
-//     return data;
-//   } catch (error: any) {
-//     console.error("Error marking order as paid:", error.message);
-//   }
-// };
+    return data;
+  } catch (error: any) {
+    console.error("Error deleting order:", error.message);
+  }
+};
+
+
 

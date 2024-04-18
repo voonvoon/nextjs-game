@@ -4,6 +4,7 @@ import {
   createOrder2,
   fetchOrderInWebhook,
   markOrderAsPaid,
+  deleteOrder,
 } from "@/libs/apis";
 
 //Chip set up
@@ -78,6 +79,14 @@ export async function POST(request: Request, response: Response) {
 
         const updatedToPaid = await markOrderAsPaid(orderData[0]._id);
         console.log("updatedToPaid===>", updatedToPaid);
+      }
+
+      if (parsed.event_type === "purchase.payment_failure") {
+        const orderData = await fetchOrderInWebhook(parsed.reference);
+        console.log("Order fetched in webhook ===>", orderData);
+        console.log("orderData[0]._id ===>", orderData[0]._id);
+        const orderDeleted = await deleteOrder(orderData[0]._id);
+        console.log("orderDeleted===>", orderDeleted);
       }
 
       //console.log("love to see what inside headers ===>", seeHeaders);
