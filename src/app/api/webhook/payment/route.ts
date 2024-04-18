@@ -82,7 +82,7 @@ export async function POST(request: Request, response: Response) {
 
         //update game quantity
 
-        const updatedQty = updateGameQuantity(orderData[0].items);
+        const updatedQty = await updateGameQuantity(orderData[0].items);
         console.log("updatedQty????===>", updatedQty);
       }
 
