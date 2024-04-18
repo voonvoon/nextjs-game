@@ -20,6 +20,17 @@ export type GameSubset = Pick<
 	'_id' | 'price' | 'quantity' | 'images' | 'name'
 > & { maxQuantity: number }; //add 1 more type for stripe purpose
 
+export interface GameSubset3 {
+	_key: string;
+	game: {
+	  _key: number;
+	  _ref: string;
+	  _type: string;
+	};
+	quantity: number;
+	maxQuantity: number
+  }
+
 export interface GameSubset2 {
 	name: string;
 	price: number;

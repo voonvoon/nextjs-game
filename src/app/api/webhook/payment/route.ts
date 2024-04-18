@@ -5,6 +5,7 @@ import {
   fetchOrderInWebhook,
   markOrderAsPaid,
   deleteOrder,
+  updateGameQuantity,
 } from "@/libs/apis";
 
 //Chip set up
@@ -76,9 +77,12 @@ export async function POST(request: Request, response: Response) {
         const orderData = await fetchOrderInWebhook(parsed.reference);
         console.log("Order fetched in webhook ===>", orderData);
         console.log("orderData[0]._id ===>", orderData[0]._id);
-
         const updatedToPaid = await markOrderAsPaid(orderData[0]._id);
         console.log("updatedToPaid===>", updatedToPaid);
+
+        //update game quantity
+
+        updateGameQuantity(orderData.items);
       }
 
       if (parsed.event_type === "purchase.payment_failure") {

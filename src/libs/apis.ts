@@ -1,5 +1,5 @@
 import { Category } from "@/model/category";
-import { Game, GameSubset, GameSubset2 } from "@/model/game";
+import { Game, GameSubset, GameSubset2, GameSubset3 } from "@/model/game";
 import sanityClient from "./sanity";
 import axios from "axios";
 
@@ -118,13 +118,13 @@ export const getGame = async (slug: string): Promise<Game> => {
   return game;
 };
 
-export const updateGameQuantity = async (games: GameSubset[]) => {
+export const updateGameQuantity = async (games: GameSubset3[]) => {
   const mutation = {
-    mutations: games.map(({ _id, maxQuantity, quantity }) => {
+    mutations: games.map(({ game: { _ref }, maxQuantity, quantity }) => {
       // destructure from each game
       return {
         patch: {
-          id: _id,
+          id: _ref,
           set: {
             quantity: maxQuantity - quantity,
           },
@@ -156,7 +156,7 @@ export const createOrder = async (games: GameSubset[], userEmail: string) => {
               _ref: game._id,
             },
             quantity: game.quantity,
-            maxQuantity:game.images, // add this
+            maxQuantity:game.maxQuantity, // add this so can use in webhook to update game qty.
             _key: `item_${idx + 1}`,
           })),
           userEmail,
