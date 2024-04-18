@@ -23,9 +23,9 @@ export type GameSubset = Pick<
 export interface GameSubset3 {
 	_key: string;
 	game: {
-	  _key: number;
-	  _ref: string;
-	  _type: string;
+	//   _key: number;
+	  _id: string;
+	//   _type: string;
 	};
 	quantity: number;
 	maxQuantity: number

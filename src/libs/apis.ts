@@ -120,11 +120,11 @@ export const getGame = async (slug: string): Promise<Game> => {
 
 export const updateGameQuantity = async (games: GameSubset3[]) => {
   const mutation = {
-    mutations: games.map(({ game: { _ref }, maxQuantity, quantity }) => {
+    mutations: games.map(({ game: { _id }, maxQuantity, quantity }) => {
       // destructure from each game
       return {
         patch: {
-          id: _ref,
+          id: _id,
           set: {
             quantity: maxQuantity - quantity,
           },
