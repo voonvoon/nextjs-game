@@ -1,7 +1,7 @@
 "use client";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHook";
-import { toggleCart, removeItemFromCart } from "@/redux/features/cartSlice";
+import { toggleCart, removeItemFromCart, removeAllItemsFromCart } from "@/redux/features/cartSlice";
 import { FC, useEffect, useState } from "react";
 import { RiCloseLine } from "react-icons/ri";
 import Image from "next/image";
@@ -49,6 +49,9 @@ const Cart: FC = () => {
     if (!data) return;
     console.log("let see sessions yoy===>", data)
     window.location.href = data.checkout_url;
+
+    //remove all from cart after clicked checkout
+    dispatch(removeAllItemsFromCart());
 
   }
 
