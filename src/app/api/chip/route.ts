@@ -45,7 +45,7 @@ export async function POST(req: Request, res: Response) {
   //console.log("see formatted products for chip====>", productsForChipIn);
 
   const client = {
-    email: userEmail || "test@gmail.com",
+    email: userEmail || formData.email,
     full_name: formData.name,
     shipping_street_address: formData.address,
     shipping_city: formData.city,

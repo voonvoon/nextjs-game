@@ -10,7 +10,6 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   cartItems: {};
-  //   checkoutHandler: () => void;
 }
 
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
@@ -21,7 +20,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
     const { data } = await axios.post("/api/chip", {
       cartItems,
       userEmail: session?.user?.email,
-      formData
+      formData,
     });
     if (!data) return;
     console.log("let see sessions yoy===>", data);
@@ -33,10 +32,11 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
 
   const [formData, setFormData] = useState({
     name: "",
+    email: "",
     address: "",
     city: "",
     postcode: "",
-    state:"",
+    state: "",
     phone: "",
   });
 
@@ -50,11 +50,11 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
     }));
   };
 
+  //handleSubmit not neccessary cuz got checkoutHandler already, use cuz need validate forms only
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log(formData);
-    onClose();
+
+    checkoutHandler();
   };
 
   return (
@@ -71,10 +71,10 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
           >
             X
           </button>
-          <h2 className="text-2xl mb-4">Modal Title</h2>
+          <h2 className="text-2xl mb-4">Shipping Details</h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-4">
-              <label className="block mb-2" htmlFor="name">
+              <label className="block mb-1" htmlFor="name">
                 Name:
               </label>
               <input
@@ -83,12 +83,33 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="border border-gray-300 p-2 w-full"
+                className="border border-gray-300 p-2 w-full focus:border-blue-300 focus:outline-none"
                 required
               />
+              <span></span>
             </div>
+            {session?.user?.email ? (
+              ""
+            ) : (
+              <div className="mb-4">
+                <label className="block mb-1" htmlFor="email">
+                  Email:
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className="border border-gray-300 p-2 w-full focus:border-blue-300 focus:outline-none"
+                  required
+                />
+                <span></span>
+              </div>
+            )}
+
             <div className="mb-4">
-              <label className="block mb-2" htmlFor="address">
+              <label className="block mb-1" htmlFor="address">
                 Address:
               </label>
               <input
@@ -97,12 +118,13 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
                 name="address"
                 value={formData.address}
                 onChange={handleChange}
-                className="border border-gray-300 p-2 w-full"
+                className="border border-gray-300 p-2 w-full focus:border-blue-300 focus:outline-none"
                 required
               />
+              <span></span>
             </div>
             <div className="mb-4">
-              <label className="block mb-2" htmlFor="city">
+              <label className="block mb-1" htmlFor="city">
                 City:
               </label>
               <input
@@ -111,12 +133,13 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
                 name="city"
                 value={formData.city}
                 onChange={handleChange}
-                className="border border-gray-300 p-2 w-full"
+                className="border border-gray-300 p-2 w-full focus:border-blue-300 focus:outline-none"
                 required
               />
+              <span></span>
             </div>
             <div className="mb-4">
-              <label className="block mb-2" htmlFor="postcode">
+              <label className="block mb-1" htmlFor="postcode">
                 Postcode:
               </label>
               <input
@@ -125,12 +148,13 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
                 name="postcode"
                 value={formData.postcode}
                 onChange={handleChange}
-                className="border border-gray-300 p-2 w-full"
+                className="border border-gray-300 p-2 w-full focus:border-blue-300 focus:outline-none"
                 required
               />
+              <span></span>
             </div>
             <div className="mb-4">
-              <label className="block mb-2" htmlFor="city">
+              <label className="block mb-1" htmlFor="city">
                 State:
               </label>
               <input
@@ -139,9 +163,10 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
                 name="state"
                 value={formData.state}
                 onChange={handleChange}
-                className="border border-gray-300 p-2 w-full"
+                className="border border-gray-300 p-2 w-full focus:border-blue-300 focus:outline-none"
                 required
               />
+              <span></span>
             </div>
             <div className="mb-4">
               <label className="block mb-2" htmlFor="phone">
@@ -156,11 +181,13 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
                 className="border border-gray-300 p-2 w-full"
                 required
               />
+              <span></span>
             </div>
             <button
               type="submit"
-              onClick={checkoutHandler}
+              //onClick={checkoutHandler}
               className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+              //   disabled={!formValid}
             >
               Proceed to pay
             </button>

@@ -1,20 +1,24 @@
 "use client";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/storeHook";
-import { toggleCart, removeItemFromCart, removeAllItemsFromCart } from "@/redux/features/cartSlice";
+import {
+  toggleCart,
+  removeItemFromCart,
+  removeAllItemsFromCart,
+} from "@/redux/features/cartSlice";
 import { FC, useEffect, useState } from "react";
 import { RiCloseLine } from "react-icons/ri";
 import Image from "next/image";
 import useCartTotals from "@/hooks/useCartTotal";
-import { getStripe } from "@/libs/loadStripe";
-import axios from "axios";
+// import { getStripe } from "@/libs/loadStripe";
+// import axios from "axios";
 import { useSession } from "next-auth/react";
 import Modal from "./CartDetails";
 
 const Cart: FC = () => {
   const { showCart, cartItems } = useAppSelector((state) => state.cart);
   const [renderComponent, setRenderComponent] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);  
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -129,12 +133,13 @@ const Cart: FC = () => {
         <span className={classNames.subtotalText}>Sub Total</span>
         <span className={classNames.subtotalPrice}>{totalPrice}</span>
       </div>
-      <button onClick={openModal} className={classNames.checkoutBtn}>
-        Checkout
-      </button>
+      {cartItems && cartItems.length > 0 ? (
+        <button onClick={openModal} className={classNames.checkoutBtn}>
+          Checkout
+        </button>
+      ) : ""}
 
-    
-      <Modal isOpen={isModalOpen} onClose={closeModal} cartItems={cartItems}/>
+      <Modal isOpen={isModalOpen} onClose={closeModal} cartItems={cartItems} />
     </div>
   );
 };

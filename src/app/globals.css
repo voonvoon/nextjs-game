@@ -5,3 +5,21 @@
 html {
   font-family: var(--font-montserrat), var(--font-poppins), sans-serif;
 }
+
+/* Style for the invalid input */
+/* input:invalid {
+  border-color: #4c00ff; 
+} */
+
+/* Style for the validation message */
+input:invalid + span::before {
+  content: ""; /* Display warning icon */
+  margin-right: 0.5em;
+}
+
+input:invalid + span::after {
+  font-style: italic ;
+  content: "*required"; /* Custom error message */
+  color: #ff0000; /* Set text color to red */
+  font-size: 0.7em; /* Adjust font size */
+}
