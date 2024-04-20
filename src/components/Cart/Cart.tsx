@@ -9,10 +9,20 @@ import useCartTotals from "@/hooks/useCartTotal";
 import { getStripe } from "@/libs/loadStripe";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import Modal from "./CartDetails";
 
 const Cart: FC = () => {
   const { showCart, cartItems } = useAppSelector((state) => state.cart);
   const [renderComponent, setRenderComponent] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);  
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const { totalPrice } = useCartTotals();
 
@@ -41,19 +51,20 @@ const Cart: FC = () => {
   //   stripe.redirectToCheckout({ sessionId: data.id });
   // };
 
-  const checkoutHandler = async () => {
-    const { data } = await axios.post("/api/chip", {
-      cartItems,
-      userEmail: session?.user?.email,
-    });
-    if (!data) return;
-    console.log("let see sessions yoy===>", data)
-    window.location.href = data.checkout_url;
+  // const checkoutHandler = async () => {
 
-    //remove all from cart after clicked checkout
-    dispatch(removeAllItemsFromCart());
+  //   const { data } = await axios.post("/api/chip", {
+  //     cartItems,
+  //     userEmail: session?.user?.email,
+  //   });
+  //   if (!data) return;
+  //   console.log("let see sessions yoy===>", data)
+  //   window.location.href = data.checkout_url;
 
-  }
+  //   //remove all from cart after clicked checkout
+  //   dispatch(removeAllItemsFromCart());
+
+  // }
 
   useEffect(() => {
     setRenderComponent(true);
@@ -118,9 +129,12 @@ const Cart: FC = () => {
         <span className={classNames.subtotalText}>Sub Total</span>
         <span className={classNames.subtotalPrice}>{totalPrice}</span>
       </div>
-      <button onClick={checkoutHandler} className={classNames.checkoutBtn}>
+      <button onClick={openModal} className={classNames.checkoutBtn}>
         Checkout
       </button>
+
+    
+      <Modal isOpen={isModalOpen} onClose={closeModal} cartItems={cartItems}/>
     </div>
   );
 };

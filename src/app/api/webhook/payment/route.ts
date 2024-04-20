@@ -1,7 +1,6 @@
 const Chip = require("Chip").default;
 import {
-  createOrder,
-  createOrder2,
+  createOrder, // not use in here cuz create order when user clicked checkout.
   fetchOrderInWebhook,
   markOrderAsPaid,
   deleteOrder,
@@ -12,22 +11,6 @@ import {
 Chip.ApiClient.instance.basePath = process.env.ENDPOINT;
 Chip.ApiClient.instance.token = process.env.API_KEY;
 const apiInstance = new Chip.PaymentApi();
-
-// const testProductCreate = [
-//   {
-//     _id: "847aa179-c68b-4f15-866c-302a1ab1809a",
-//     name: "game of thrones",
-//     images: [
-//       {
-//         "_key": "b8dc70d5cbce",
-//         "url": "https://images.unsplash.com/photo-1507388644107-ce16cdf15eba?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-//       }
-//     ],
-//     quantity: 1,
-//     maxQuantity: 120,
-//     price: 121,
-//   }
-// ];
 
 export async function POST(request: Request, response: Response) {
   try {
@@ -52,27 +35,6 @@ export async function POST(request: Request, response: Response) {
       console.log("love to see what inside rawBody ===>", rawBody);
       console.log(" Products ++++===>", parsed.purchase.products);
 
-      // if (parsed.event_type === "purchase.paid") {
-      //   if (
-      //     parsed.purchase &&
-      //     Array.isArray(parsed.purchase.products) &&
-      //     parsed.client &&
-      //     parsed.client.email
-      //   ) {
-      //     try {
-      //       const data = await createOrder2(
-      //         parsed.purchase.products,
-      //         parsed.client.email
-      //       ); // is asyn func , add await is important else result not consistent
-
-      //       console.log("yay!order Created=====>", data);
-      //     } catch (error) {
-      //       console.error("Error creating order:", error);
-      //     }
-      //   } else {
-      //     console.log("Missing required data for creating order.");
-      //   }
-      // }
       if (parsed.event_type === "purchase.paid") {
         const orderData = await fetchOrderInWebhook(parsed.reference);
         console.log("Order fetched in webhook ===>", orderData);
@@ -110,3 +72,19 @@ export async function POST(request: Request, response: Response) {
     status: 200,
   });
 }
+
+// const testProductCreate = [
+//   {
+//     _id: "847aa179-c68b-4f15-866c-302a1ab1809a",
+//     name: "game of thrones",
+//     images: [
+//       {
+//         "_key": "b8dc70d5cbce",
+//         "url": "https://images.unsplash.com/photo-1507388644107-ce16cdf15eba?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+//       }
+//     ],
+//     quantity: 1,
+//     maxQuantity: 120,
+//     price: 121,
+//   }
+// ];

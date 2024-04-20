@@ -1,11 +1,11 @@
 import sanityClient from "@/libs/sanity";
 import { Game, GameSubset } from "@/model/game";
 import { NextResponse } from "next/server";
-import { createOrder, updateGameQuantity } from "@/libs/apis";
+import { createOrder } from "@/libs/apis";
 const Chip = require("Chip").default;
 
 export async function POST(req: Request, res: Response) {
-  const { cartItems, userEmail } = await req.json();
+  const { cartItems, userEmail, formData } = await req.json();
   //const origin = req.headers.get("origin"); //origin:https://example.com
 
   //Chip set up
@@ -27,6 +27,7 @@ export async function POST(req: Request, res: Response) {
     userEmail || "testingemail@gmail.com"
   ); // is asyn func , add await is important else result not consistent
   console.log("yay!order Created after click checkout=====>", dataCreateOrder);
+  console.log("let see what we got in form data====>", formData);
 
   //make [{product},{product}..]to match chip payment gateway from updatedItems
   const productsForChipIn = updatedItems.map((item) => {
@@ -43,7 +44,16 @@ export async function POST(req: Request, res: Response) {
 
   //console.log("see formatted products for chip====>", productsForChipIn);
 
-  const client = { email: userEmail || "test@gmail.com" };
+  const client = {
+    email: userEmail || "test@gmail.com",
+    full_name: formData.name,
+    shipping_street_address: formData.address,
+    shipping_city: formData.city,
+    shipping_zip_code: formData.postcode,
+    shipping_state: formData.state,
+    phone: formData.phone
+
+  };
   const details = {
     // products: [
     //   { name: "Test", price: 100, quantity: 3, discount: 50 },
