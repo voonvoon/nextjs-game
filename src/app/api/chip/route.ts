@@ -24,7 +24,7 @@ export async function POST(req: Request, res: Response) {
   // create order after user click checkout
   const dataCreateOrder = await createOrder(
     updatedItems,
-    userEmail || "testingemail@gmail.com"
+    userEmail || formData.email
   ); // is asyn func , add await is important else result not consistent
   console.log("yay!order Created after click checkout=====>", dataCreateOrder);
   console.log("let see what we got in form data====>", formData);
