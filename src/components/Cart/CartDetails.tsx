@@ -16,6 +16,18 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
   const { data: session } = useSession();
   const dispatch = useAppDispatch();
 
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    address: "",
+    city: "",
+    postcode: "",
+    state: "",
+    phone: "",
+  });
+
+  //console.log("formData=====>>>>", formData);
+
   const checkoutHandler = async () => {
     const { data } = await axios.post("/api/chip", {
       cartItems,
@@ -30,18 +42,6 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
     dispatch(removeAllItemsFromCart());
   };
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    address: "",
-    city: "",
-    postcode: "",
-    state: "",
-    phone: "",
-  });
-
-  console.log("formData=====>>>>", formData);
-
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -50,31 +50,33 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
     }));
   };
 
-  //handleSubmit not neccessary cuz got checkoutHandler already, use cuz need validate forms only
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     checkoutHandler();
   };
 
+  
+
   return (
     <div
-      className={`fixed z-10 inset-0 overflow-y-auto ${
+      className={`fixed z-10 inset-0 overflow-y-auto  ${
         isOpen ? "block" : "hidden"
       }`}
     >
       <div className="flex items-center justify-center min-h-screen">
-        <div className="relative bg-white w-96 rounded-lg p-8">
+        <div className="relative bg-white w-96 rounded-lg p-4">
           <button
             onClick={onClose}
             className="absolute top-0 right-0 m-2 p-2 text-gray-500 hover:text-gray-700"
           >
             X
           </button>
-          <h2 className="text-2xl mb-4">Shipping Details</h2>
+          <h2 className="text-2xl mb-1">Shipping Details</h2>
           <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <label className="block mb-1" htmlFor="name">
+            <div className="mb-1">
+                {/* htmlFor="name" links the label to the input element with the corresponding id */}
+              <label className="block" htmlFor="name"> 
                 Name:
               </label>
               <input
@@ -91,8 +93,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
             {session?.user?.email ? (
               ""
             ) : (
-              <div className="mb-4">
-                <label className="block mb-1" htmlFor="email">
+              <div className="mb-1">
+                <label className="block" htmlFor="email">
                   Email:
                 </label>
                 <input
@@ -108,8 +110,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
               </div>
             )}
 
-            <div className="mb-4">
-              <label className="block mb-1" htmlFor="address">
+            <div className="mb-1">
+              <label className="block" htmlFor="address">
                 Address:
               </label>
               <input
@@ -123,8 +125,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
               />
               <span></span>
             </div>
-            <div className="mb-4">
-              <label className="block mb-1" htmlFor="city">
+            <div className="mb-1">
+              <label className="block" htmlFor="city">
                 City:
               </label>
               <input
@@ -138,8 +140,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
               />
               <span></span>
             </div>
-            <div className="mb-4">
-              <label className="block mb-1" htmlFor="postcode">
+            <div className="mb-1">
+              <label className="block" htmlFor="postcode">
                 Postcode:
               </label>
               <input
@@ -153,8 +155,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
               />
               <span></span>
             </div>
-            <div className="mb-4">
-              <label className="block mb-1" htmlFor="city">
+            <div className="mb-1">
+              <label className="block" htmlFor="city">
                 State:
               </label>
               <input
@@ -168,8 +170,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
               />
               <span></span>
             </div>
-            <div className="mb-4">
-              <label className="block mb-2" htmlFor="phone">
+            <div className="mb-1">
+              <label className="block" htmlFor="phone">
                 Phone:
               </label>
               <input
@@ -178,7 +180,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className="border border-gray-300 p-2 w-full"
+                className="border border-gray-300 p-2 w-full focus:border-blue-300 focus:outline-none"
                 required
               />
               <span></span>
@@ -186,7 +188,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
             <button
               type="submit"
               //onClick={checkoutHandler}
-              className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600"
+              className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 w-full"
               //   disabled={!formValid}
             >
               Proceed to pay
