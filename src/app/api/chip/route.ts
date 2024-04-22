@@ -70,7 +70,7 @@ export async function POST(req: Request, res: Response) {
     client: client,
     purchase: details,
     success_redirect: `${process.env.BASE_URL}/redirect/payment_success`,
-    failure_redirect: `${process.env.BASE_URL}/redirect/payment_fialed`,
+    failure_redirect: `${process.env.BASE_URL}/redirect/payment_failed`,
     success_callback: `${process.env.BASE_URL}/api/callback`,
   };
 
