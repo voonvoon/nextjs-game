@@ -26,9 +26,12 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
     phone: "",
   });
 
+  const [loading, setLoading] = useState(false);
+
   //console.log("formData=====>>>>", formData);
 
   const checkoutHandler = async () => {
+    setLoading(true);
     const { data } = await axios.post("/api/chip", {
       cartItems,
       userEmail: session?.user?.email,
@@ -37,7 +40,6 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
     if (!data) return;
     console.log("let see sessions yoy===>", data);
     window.location.href = data.checkout_url;
-
     //remove all from cart after clicked checkout
     dispatch(removeAllItemsFromCart());
   };
@@ -56,8 +58,6 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
     checkoutHandler();
   };
 
-  
-
   return (
     <div
       className={`fixed z-10 inset-0 overflow-y-auto  ${
@@ -75,8 +75,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
           <h2 className="text-2xl mb-1">Shipping Details</h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-1">
-                {/* htmlFor="name" links the label to the input element with the corresponding id */}
-              <label className="block" htmlFor="name"> 
+              {/* htmlFor="name" links the label to the input element with the corresponding id */}
+              <label className="block" htmlFor="name">
                 Name:
               </label>
               <input
@@ -191,7 +191,15 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
               className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 w-full"
               //   disabled={!formValid}
             >
-              Proceed to pay
+              {/* {loading ? "Please Wait..." : "Pay Now"} */}
+              {loading ? (
+                <div className="flex items-center">
+                  <span className="mr-2">Please Wait...</span>
+                  <div className="animate-spin rounded-full h-6 w-6 border-t-4 border-b-4 border-gray-200"></div>
+                </div>
+              ) : (
+                <span>Pay Now</span>
+              )}
             </button>
           </form>
         </div>
