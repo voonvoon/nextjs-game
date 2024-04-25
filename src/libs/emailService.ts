@@ -27,7 +27,7 @@ const emailSubPaid = async (emailToSend:string) => {
 
     const email = {
       body: {
-        name: "Mr Success" ,
+        name: "Mr Successs" ,
         intro: `Your subscription (ID: "XXX") is paid! Visit our website, log in, and check 'Dashboard' -> 'My Subscription' for details.`,
         outro: [
           "Need help, or have questions? just reply to this email, we'd love to help you up.",
