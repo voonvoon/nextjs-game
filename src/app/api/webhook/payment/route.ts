@@ -1,4 +1,6 @@
 const Chip = require("Chip").default;
+import emailSubPaid from "@/libs/emailService";
+
 import {
   createOrder, // not use in here cuz create order when user clicked checkout.
   fetchOrderInWebhook,
@@ -47,6 +49,8 @@ export async function POST(request: Request, response: Response) {
 
         const updatedQty = await updateGameQuantity(orderData[0].items);
         console.log("updatedQty????===>", updatedQty);
+
+        emailSubPaid("wonghv@gmail.com");
       }
 
       if (parsed.event_type === "purchase.payment_failure") {
