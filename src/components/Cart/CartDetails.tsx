@@ -195,7 +195,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
               {loading ? (
                 <div className="flex items-center">
                   <span className="mr-2">Please Wait...</span>
-                  <div className="animate-spin rounded-full h-6 w-6 border-t-4 border-b-4 border-gray-200"></div>
+                  <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-gray-200"></div>
                 </div>
               ) : (
                 <span>Pay Now</span>
