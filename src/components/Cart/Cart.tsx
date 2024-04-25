@@ -15,6 +15,7 @@ import useCartTotals from "@/hooks/useCartTotal";
 import { useSession } from "next-auth/react";
 import Modal from "./CartDetails";
 
+
 const Cart: FC = () => {
   const { showCart, cartItems } = useAppSelector((state) => state.cart);
   const [renderComponent, setRenderComponent] = useState(false);
@@ -27,6 +28,10 @@ const Cart: FC = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
+  // const testEmail = () => {
+  //   emailSubPaid("wonghv@gmail.com")
+  // }
 
   const { totalPrice } = useCartTotals();
 
@@ -137,7 +142,13 @@ const Cart: FC = () => {
         <button onClick={openModal} className={classNames.checkoutBtn}>
           Checkout
         </button>
-      ) : ""}
+      ) : (
+        ""
+      )}
+
+      {/* <button onClick={testEmail} className={classNames.checkoutBtn}>
+        Test Email
+      </button> */}
 
       <Modal isOpen={isModalOpen} onClose={closeModal} cartItems={cartItems} />
     </div>
