@@ -50,7 +50,9 @@ export async function POST(request: Request, response: Response) {
         const updatedQty = await updateGameQuantity(orderData[0].items);
         console.log("updatedQty????===>", updatedQty);
 
-        emailSubPaid("wonghv@gmail.com");
+        //send email
+        const sentEmail = await emailSubPaid("wonghv@gmail.com");
+        console.log("sentEmail===>", sentEmail);
       }
 
       if (parsed.event_type === "purchase.payment_failure") {
