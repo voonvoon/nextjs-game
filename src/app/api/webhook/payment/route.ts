@@ -1,5 +1,5 @@
 const Chip = require("Chip").default;
-import emailSubPaid from "@/libs/emailService";
+import {emailSubPaid} from "@/libs/emailService";
 
 import {
   createOrder, // not use in here cuz create order when user clicked checkout.

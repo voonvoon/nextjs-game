@@ -1,8 +1,7 @@
 const nodemailer = require("nodemailer");
 const Mailgen = require("mailgen");
 
-
-const emailSubPaid = async (emailToSend:string) => {
+export async function emailSubPaid(emailToSend: string) {
   let transporter = nodemailer.createTransport({
     service: "Gmail",
     secure: true,
@@ -27,7 +26,7 @@ const emailSubPaid = async (emailToSend:string) => {
 
     const email = {
       body: {
-        name: "Mr Successs" ,
+        name: "Mr Successs",
         intro: `Your subscription (ID: "XXX") is paid! Visit our website, log in, and check 'Dashboard' -> 'My Subscription' for details.`,
         outro: [
           "Need help, or have questions? just reply to this email, we'd love to help you up.",
@@ -56,10 +55,10 @@ const emailSubPaid = async (emailToSend:string) => {
   } catch (error) {
     throw error;
   }
-};
+}
 
 // module.exports = {
 //   emailSubPaid,
 // };
 
-export default emailSubPaid;
+//export default emailSubPaid;
