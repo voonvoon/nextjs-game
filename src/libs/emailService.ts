@@ -13,7 +13,7 @@ export async function emailSubPaid(emailToSend: string) {
 
   try {
     let mailGenerator = new Mailgen({
-      theme: "default",
+      theme: "cerberus",
       product: {
         name: "Next Game Commerce",
         link: `${process.env.EMAIL_MAIL_URL}`,
