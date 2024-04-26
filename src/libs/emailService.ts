@@ -26,7 +26,7 @@ export async function emailSubPaid(emailToSend: string) {
 
     const email = {
       body: {
-        name: "Mr Successs",
+        name: "Mr Successss",
         intro: `Your subscription (ID: "XXX") is paid! Visit our website, log in, and check 'Dashboard' -> 'My Subscription' for details.`,
         outro: [
           "Need help, or have questions? just reply to this email, we'd love to help you up.",
