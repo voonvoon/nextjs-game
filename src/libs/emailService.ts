@@ -53,7 +53,9 @@ export async function emailSubPaid(emailToSend: string) {
     await transporter.sendMail(message);
     return true;
   } catch (error) {
-    throw error;
+    //throw error;
+    console.error("Error in sending email:", error);
+    return error;
   }
 }
 
