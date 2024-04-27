@@ -17,7 +17,7 @@ const emailSubPaid = async (emailToSend: string) => {
 
   try {
     let mailGenerator = new Mailgen({
-      theme: "default",
+      theme: "salted",
       product: {
         name: "Next Game Commerce",
         //link: process.env.EMAIL_MAIN_URL,
@@ -39,7 +39,7 @@ const emailSubPaid = async (emailToSend: string) => {
         action: {
           instructions: "",
           button: {
-            color: "#48cfad",
+            color: "green",
             text: "Visit Website",
             //link: process.env.EMAIL_MAIN_URL,
             link: "www.google.com"
