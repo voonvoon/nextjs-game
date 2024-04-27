@@ -1,11 +1,11 @@
-// const nodemailer = require("nodemailer");
-// const Mailgen = require("mailgen");
+const nodemailer = require("nodemailer");
+const Mailgen = require("mailgen");
 
-import nodemailer from "nodemailer";
-import Mailgen from "mailgen";
+// import nodemailer from "nodemailer";
+// import Mailgen from "mailgen";
 
 
-export async function emailSubPaid(emailToSend: string) {
+const emailSubPaid = async (emailToSend: string) => {
   let transporter = nodemailer.createTransport({
     service: "Gmail",
     secure: true,
@@ -46,7 +46,7 @@ export async function emailSubPaid(emailToSend: string) {
       },
     };
 
-    let emailBody = mailGenerator.generate(email as any);
+    let emailBody = mailGenerator.generate(email);
     let message = {
       from: process.env.EMAIL,
       to: emailToSend,
@@ -66,5 +66,6 @@ export async function emailSubPaid(emailToSend: string) {
 // module.exports = {
 //   emailSubPaid,
 // };
+export { emailSubPaid };
 
 //export default emailSubPaid;
