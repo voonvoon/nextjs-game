@@ -160,6 +160,6 @@ const emailSubPaid = async (emailToSend: string) => {
   }
 };
 
-module.exports = {
+export {
   emailSubPaid,
 };
