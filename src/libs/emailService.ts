@@ -17,9 +17,9 @@ const emailSubPaid = async (emailToSend: string) => {
 
   try {
     let mailGenerator = new Mailgen({
-      theme: "salted",
+      theme:"salted",
       product: {
-        name: "Next Game Commerce",
+        name:"Next Game Commerce",
         //link: process.env.EMAIL_MAIN_URL,
         link:"www.google.com",
         logo: "https://res.cloudinary.com/dbgj9uwjp/image/upload/v1700372458/beanCollectorLogo_3_zwztfr.png",
