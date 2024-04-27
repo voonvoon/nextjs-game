@@ -75,38 +75,7 @@
 
 //export default emailSubPaid;
 
-// const nodemailer = require("nodemailer");
-
-// const emailSubPaid = async (emailToSend: string) => {
-//   let transporter = nodemailer.createTransport({
-//     service: "Gmail",
-//     secure: true,
-//     auth: {
-//       user: process.env.EMAIL,
-//       pass: process.env.EMAIL_PASSWORD,
-//     },
-//   });
-
-//   try {
-//     const email = {
-//       from: process.env.EMAIL,
-//       to: emailToSend,
-//       subject: `Subscription ID: "XXX" payment successful!-- Game Commerce site.`,
-//       text: "This is a testing email.",
-//     };
-
-//     await transporter.sendMail(email);
-//     return true;
-//   } catch (error) {
-//     console.error("Error in sending email:", error);
-//     return error;
-//   }
-// }
-
-// export { emailSubPaid };
-
 const nodemailer = require("nodemailer");
-const { compile } = require("mjml");
 
 const emailSubPaid = async (emailToSend: string) => {
   let transporter = nodemailer.createTransport({
@@ -119,47 +88,82 @@ const emailSubPaid = async (emailToSend: string) => {
   });
 
   try {
-    // Compile your MJML template
-    const mjmlTemplate = `
-      <mjml>
-        <mj-body>
-          <mj-section>
-            <mj-column>
-              <mj-text>
-                Hello Mr Successss,
-              </mj-text>
-              <mj-text>
-                Your subscription (ID: "XXX") is paid! Visit our website, log in, and check 'Dashboard' -> 'My Subscription' for details.
-              </mj-text>
-              <mj-button href="www.google.com" background-color="green">
-                Visit Website
-              </mj-button>
-              <mj-text>
-                Need help, or have questions? Just reply to this email, we'd love to help you up.
-              </mj-text>
-            </mj-column>
-          </mj-section>
-        </mj-body>
-      </mjml>
-    `;
-
-    const { html } = compile(mjmlTemplate);
-
-    const message = {
+    const email = {
       from: process.env.EMAIL,
       to: emailToSend,
-      subject: `Subscription ID: "XXX" payment successful! -- Game Commerce site.`,
-      html: html,
+      subject: `Subscription ID: "XXX" payment successful!-- Game Commerce site.`,
+      text: "This is a testing email.",
     };
 
-    await transporter.sendMail(message);
+    await transporter.sendMail(email);
     return true;
   } catch (error) {
     console.error("Error in sending email:", error);
     return error;
   }
-};
+}
 
-export {
-  emailSubPaid,
-};
+export { emailSubPaid };
+
+
+
+
+
+// const nodemailer = require("nodemailer");
+// const { compile } = require("mjml");
+
+// const emailSubPaid = async (emailToSend: string) => {
+//   let transporter = nodemailer.createTransport({
+//     service: "Gmail",
+//     secure: true,
+//     auth: {
+//       user: process.env.EMAIL,
+//       pass: process.env.EMAIL_PASSWORD,
+//     },
+//   });
+
+//   try {
+//     // Compile your MJML template
+//     const mjmlTemplate = `
+//       <mjml>
+//         <mj-body>
+//           <mj-section>
+//             <mj-column>
+//               <mj-text>
+//                 Hello Mr Successss,
+//               </mj-text>
+//               <mj-text>
+//                 Your subscription (ID: "XXX") is paid! Visit our website, log in, and check 'Dashboard' -> 'My Subscription' for details.
+//               </mj-text>
+//               <mj-button href="www.google.com" background-color="green">
+//                 Visit Website
+//               </mj-button>
+//               <mj-text>
+//                 Need help, or have questions? Just reply to this email, we'd love to help you up.
+//               </mj-text>
+//             </mj-column>
+//           </mj-section>
+//         </mj-body>
+//       </mjml>
+//     `;
+
+//     const { html } = compile(mjmlTemplate);
+
+//     const message = {
+//       from: process.env.EMAIL,
+//       to: emailToSend,
+//       subject: `Subscription ID: "XXX" payment successful! -- Game Commerce site.`,
+//       html: html,
+//     };
+
+//     await transporter.sendMail(message);
+//     return true;
+//   } catch (error) {
+//     console.error("Error in sending email:", error);
+//     return error;
+//   }
+// };
+
+// export {
+//   emailSubPaid,
+// };
