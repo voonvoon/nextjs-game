@@ -20,7 +20,7 @@ const emailSubPaid = async (emailToSend: string) => {
       theme: "default",
       product: {
         name: "Next Game Commerce",
-        link: `${process.env.EMAIL_MAIN_URL}`,
+        link: process.env.EMAIL_MAIN_URL,
         logo: "https://res.cloudinary.com/dbgj9uwjp/image/upload/v1700372458/beanCollectorLogo_3_zwztfr.png",
         logoHeight: "200px",
       },
