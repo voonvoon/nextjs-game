@@ -75,6 +75,39 @@
 
 //export default emailSubPaid;
 
+// const nodemailer = require("nodemailer");
+
+// const emailSubPaid = async (emailToSend: string) => {
+//   let transporter = nodemailer.createTransport({
+//     service: "Gmail",
+//     secure: true,
+//     auth: {
+//       user: process.env.EMAIL,
+//       pass: process.env.EMAIL_PASSWORD,
+//     },
+//   });
+
+//   try {
+//     const email = {
+//       from: process.env.EMAIL,
+//       to: emailToSend,
+//       subject: `Subscription ID: "XXX" payment successful!-- Game Commerce site.`,
+//       text: "This is a testing email.",
+//     };
+
+//     await transporter.sendMail(email);
+//     return true;
+//   } catch (error) {
+//     console.error("Error in sending email:", error);
+//     return error;
+//   }
+// }
+
+// export { emailSubPaid };
+
+
+
+//without package:
 const nodemailer = require("nodemailer");
 
 const emailSubPaid = async (emailToSend: string) => {
@@ -92,7 +125,34 @@ const emailSubPaid = async (emailToSend: string) => {
       from: process.env.EMAIL,
       to: emailToSend,
       subject: `Subscription ID: "XXX" payment successful!-- Game Commerce site.`,
-      text: "This is a testing email.",
+      html: `
+        <html>
+          <head>
+            <title>I Hate NPM sometime!</title>
+            <style>
+              .button {
+                background-color: #4CAF50;
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+                border-radius: 10px;
+              }
+            </style>
+          </head>
+          <body>
+            <h1>I Love NPM sometime!!</h1>
+            <p>I Love NPM sometime!!I Love NPM sometime!!I Love NPM sometime!!I Love NPM sometime!!</p>
+            <p>Thank you for choosing our service!</p>
+            <a href="www.google.com" class="button">View Account</a>
+          </body>
+        </html>
+      `,
     };
 
     await transporter.sendMail(email);
@@ -104,6 +164,7 @@ const emailSubPaid = async (emailToSend: string) => {
 }
 
 export { emailSubPaid };
+
 
 
 
