@@ -20,7 +20,8 @@ const emailSubPaid = async (emailToSend: string) => {
       theme: "default",
       product: {
         name: "Next Game Commerce",
-        link: process.env.EMAIL_MAIN_URL,
+        //link: process.env.EMAIL_MAIN_URL,
+        link:"www.google.com",
         logo: "https://res.cloudinary.com/dbgj9uwjp/image/upload/v1700372458/beanCollectorLogo_3_zwztfr.png",
         logoHeight: "200px",
       },
@@ -40,8 +41,8 @@ const emailSubPaid = async (emailToSend: string) => {
           button: {
             color: "#48cfad",
             text: "Visit Website",
-            link: process.env.EMAIL_MAIN_URL,
-            //link: "www.google.com"
+            //link: process.env.EMAIL_MAIN_URL,
+            link: "www.google.com"
           },
         },
       },
