@@ -62,7 +62,7 @@ const emailSubPaid = async (emailToSend: string, orderData: orderDataTs) => {
             padding: 8px;
           }
           .button {
-            background-color: #4CAF50; /* Primary color */
+            background-color: #2196F3;
             border: none;
             color: white;
             padding: 15px 32px;
@@ -105,7 +105,7 @@ const emailSubPaid = async (emailToSend: string, orderData: orderDataTs) => {
     .map((item) => {
       return `
       <tr>
-        <td>${item.game.name.toUpperCase}</td>
+        <td>${(item.game.name).toUpperCase}</td>
         <td>${item.quantity}</td>
         <td>RM${item.game.price}</td> 
         <td>RM${item.quantity * item.game.price}</td>
