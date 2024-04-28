@@ -13,7 +13,7 @@ interface PurchaseItem {
 const emailSubPaid = async (emailToSend: string, orderData: orderDataTs) => {
   const { _id, items } = orderData;
 
-  console.log("Items======>", items);
+  //console.log("Items======>", items);
 
   function calculateTotal(items: PurchaseItem[]) {
     let total = 0;
@@ -62,10 +62,10 @@ const emailSubPaid = async (emailToSend: string, orderData: orderDataTs) => {
             padding: 8px;
           }
           .button {
-            background-color: #3F51B5; 
-            border: none;
-            color: white;
-            padding: 15px 32px;
+            background-color: transparent;
+            border: 2px solid #3F51B5;
+            color: #3F51B5; /* Blue text color */
+            padding: 12px 24px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
@@ -73,18 +73,22 @@ const emailSubPaid = async (emailToSend: string, orderData: orderDataTs) => {
             margin: 4px 2px;
             cursor: pointer;
             border-radius: 10px;
-            transition: background-color 0.3s;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
         }
         
         /* Hover effect */
         .button:hover {
-            background-color: #5C6BC0; 
+            background-color: #3F51B5; 
+            color: white; 
         }
         
         /* Click effect */
         .button:active {
-            background-color: #7986CB;
+            background-color: #7986CB; 
+            border-color: #7986CB; 
+            color: white;
         }
+        
         
         
         </style>
@@ -95,7 +99,7 @@ const emailSubPaid = async (emailToSend: string, orderData: orderDataTs) => {
         <table>
           <thead>
             <tr>
-              <th>Name</th>
+              <th>Product</th>
               <th>Quantity</th>
               <th>Price(Per unit)</th>
               <th>Total</th>
