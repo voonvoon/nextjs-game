@@ -6,12 +6,15 @@ interface orderDataTs {
 }
 
 interface PurchaseItem {
+  name: string;
   quantity: number;
   price: number;
 }
 
 const emailSubPaid = async (emailToSend: string, orderData: orderDataTs) => {
   const { _id, items } = orderData;
+
+  console.log("Items======>", items);
 
   function calculateTotal(items: PurchaseItem[]) {
     let total = 0;
