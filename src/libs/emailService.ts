@@ -2,13 +2,12 @@ const nodemailer = require("nodemailer");
 
 interface orderDataTs {
   _id: string;
-  items: [{ name: string; quantity: number; price: number }];
+  items: [{ quantity: number; game: { name: string; price: number } }];
 }
 
 interface PurchaseItem {
-  name: string;
+  game: { name: string; price: number };
   quantity: number;
-  price: number;
 }
 
 const emailSubPaid = async (emailToSend: string, orderData: orderDataTs) => {
@@ -19,7 +18,7 @@ const emailSubPaid = async (emailToSend: string, orderData: orderDataTs) => {
   function calculateTotal(items: PurchaseItem[]) {
     let total = 0;
     items.forEach((item) => {
-      total += item.quantity * item.price;
+      total += item.quantity * item.game.price;
     });
     return total;
   }
@@ -95,9 +94,9 @@ const emailSubPaid = async (emailToSend: string, orderData: orderDataTs) => {
     .map((item) => {
       return `
       <tr>
-        <td>${item.name}</td>
+        <td>${item.game.name}</td>
         <td>${item.quantity}</td>
-        <td>RM${item.price}</td>
+        <td>RM${item.game.price}</td>
       </tr>`;
     })
     .join("")}
