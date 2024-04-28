@@ -53,7 +53,7 @@ export async function POST(request: Request, response: Response) {
         console.log("updatedQty????===>", updatedQty);
 
         //send email
-        const sentEmail = await emailSubPaid("wonghv@gmail.com");
+        const sentEmail = await emailSubPaid(parsed.client.email, orderData);
         console.log("sentEmail===>", sentEmail);
       }
 
