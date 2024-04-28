@@ -36,17 +36,17 @@ const emailSubPaid = async (emailToSend: string, orderData: orderDataTs) => {
     const email = {
       from: process.env.EMAIL,
       to: emailToSend,
-      subject: `Purchase successful! purchase ID: ${_id} -- Game Commerce site.`,
+      subject: `Purchase successful! purchase ID: ${_id}-- Game Commerce site.`,
       html: `
       <html>
-      <head>
+      <head> 
         <title>Thank you for your purchase!🥳</title>
         <style>
           body {
             font-family: Arial, sans-serif;
           }
           h1 {
-            color: #4CAF50;
+            color: #808080;
             font-size: 24px;
           }
           p {
@@ -62,7 +62,7 @@ const emailSubPaid = async (emailToSend: string, orderData: orderDataTs) => {
             padding: 8px;
           }
           .button {
-            background-color: #4CAF50;
+            background-color: #4CAF50; /* Primary color */
             border: none;
             color: white;
             padding: 15px 32px;
@@ -73,7 +73,17 @@ const emailSubPaid = async (emailToSend: string, orderData: orderDataTs) => {
             margin: 4px 2px;
             cursor: pointer;
             border-radius: 10px;
-          }
+            transition: background-color 0.3s; 
+        }
+        
+        .button:hover {
+            background-color: #45a049; 
+        }
+        
+        .button:active {
+            background-color: #3e8e41;
+        }
+        
         </style>
       </head>
       <body>
@@ -84,7 +94,8 @@ const emailSubPaid = async (emailToSend: string, orderData: orderDataTs) => {
             <tr>
               <th>Name</th>
               <th>Quantity</th>
-              <th>Amount</th>
+              <th>Price(Per unit)</th>
+              <th>Total</th>
             </tr>
           </thead>
           <tbody>
@@ -94,9 +105,10 @@ const emailSubPaid = async (emailToSend: string, orderData: orderDataTs) => {
     .map((item) => {
       return `
       <tr>
-        <td>${item.game.name}</td>
+        <td>${item.game.name.toUpperCase}</td>
         <td>${item.quantity}</td>
-        <td>RM${item.game.price}</td>
+        <td>RM${item.game.price}</td> 
+        <td>RM${item.quantity * item.game.price}</td>
       </tr>`;
     })
     .join("")}
@@ -106,7 +118,7 @@ const emailSubPaid = async (emailToSend: string, orderData: orderDataTs) => {
         </table>
         <p>Total: RM${calculateTotal(items).toString()}</p>
         <p>Thank you for choosing our service!</p>
-        <a href="www.google.com" class="button">View Account</a>
+        <a href="www.google.com" class="button">Visit Store</a>
       </body>
     </html>`,
     };
