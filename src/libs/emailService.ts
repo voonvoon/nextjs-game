@@ -89,20 +89,23 @@ const emailSubPaid = async (emailToSend: string, orderData: orderDataTs) => {
             </tr>
           </thead>
           <tbody>
-            <!-- Loop through purchase array to populate table -->
-            <!-- Replace this section with actual data -->
-            ${items.map((item) => {
-              ` <tr>
-              <td>${item.name}</td>
-              <td>${item.quantity}</td>
-              <td>${item.price}</td>
-            </tr>`;
-            })}
-            
-            <!-- End of data loop -->
-          </tbody>
+  <!-- Loop through purchase array to populate table -->
+  <!-- Replace this section with actual data -->
+  ${items
+    .map((item) => {
+      return `
+      <tr>
+        <td>${item.name}</td>
+        <td>${item.quantity}</td>
+        <td>RM${item.price}</td>
+      </tr>`;
+    })
+    .join("")}
+  <!-- End of data loop -->
+</tbody>
+
         </table>
-        <p>Total: $${calculateTotal(items)}</p>
+        <p>Total: RM${calculateTotal(items).toString()}</p>
         <p>Thank you for choosing our service!</p>
         <a href="www.google.com" class="button">View Account</a>
       </body>
