@@ -10,7 +10,17 @@ interface PurchaseItem {
   quantity: number;
 }
 
-const emailSubPaid = async (emailToSend: string, orderData: orderDataTs) => {
+interface ClientInfo {
+  email: string;
+  phone: string;
+  full_name: string;
+  shipping_city: string;
+  shipping_state: string;
+  shipping_zip_code: string;
+  shipping_street_address: string;
+}
+
+const emailSubPaid = async (clienObj: ClientInfo, orderData: orderDataTs) => {
   const { _id, items } = orderData;
 
   //console.log("Items======>", items);
@@ -35,12 +45,13 @@ const emailSubPaid = async (emailToSend: string, orderData: orderDataTs) => {
   try {
     const email = {
       from: process.env.EMAIL,
-      to: emailToSend,
-      subject: `Purchase successful! purchase ID: ${_id}-- Game Commerce site.`,
+      to: clienObj.email,
+      subject: `Hooray!! Purchase successful! -- Game Commerce site.`,
       html: `
       <html>
       <head> 
         <title>Thank you for your purchase!🥳</title>
+        <p>purchase ID: ${_id}</P>
         <style>
           body {
             font-family: Arial, sans-serif;
@@ -50,7 +61,7 @@ const emailSubPaid = async (emailToSend: string, orderData: orderDataTs) => {
             font-size: 24px;
           }
           p {
-            font-size: 18px;
+            font-size: 16px;
           }
           table {
             border-collapse: collapse;
@@ -96,7 +107,7 @@ const emailSubPaid = async (emailToSend: string, orderData: orderDataTs) => {
             text-align: center;
         }
         .footer p {
-            margin-bottom: 10px;
+            margin-bottom: 6px;
         }
         .footer a {
             color: #3F51B5;
@@ -137,6 +148,14 @@ const emailSubPaid = async (emailToSend: string, orderData: orderDataTs) => {
 
         </table>
         <p>Total: RM${calculateTotal(items).toString()}</p>
+        <hr/>
+        <P>Buyer Name:${clienObj.full_name} </P>
+        <P>Contact:${clienObj.phone} </P>
+        <P>Email:${clienObj.email} </P>
+        <P>Delivery Address:${clienObj.shipping_street_address} ${
+        clienObj.shipping_city
+      } ${clienObj.shipping_zip_code} ${clienObj.shipping_state}</P> 
+        
         <p>Thank you for choosing our service!</p>
         <a href="https://nextjs-game-beta.vercel.app" class="button">Visit Store</a>
 <hr/>
@@ -148,7 +167,7 @@ const emailSubPaid = async (emailToSend: string, orderData: orderDataTs) => {
         <p>Website: <a href="https://nextjs-game-beta.vercel.app">Game Nextjs Store</a></p>
         <p> Game Nextjs Store <span>&copy;</span> All rights reserved.</p>
     </div>
-      </body>
+      </body>d
     </html>`,
     };
 
