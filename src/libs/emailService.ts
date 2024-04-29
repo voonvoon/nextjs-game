@@ -160,7 +160,7 @@ const emailSubPaid = async (clienObj: ClientInfo, orderData: orderDataTs) => {
         <a href="https://nextjs-game-beta.vercel.app" class="button">Visit Store</a>
 <hr/>
         <div class="footer">
-        <img src="https://res.cloudinary.com/dbgj9uwjp/image/upload/v1700372458/beanCollectorLogo_3_zwztfr.png" alt="Company Logo" style="max-width: 100px;">
+        <img src="https://res.cloudinary.com/dbgj9uwjp/image/upload/v1700372458/beanCollectorLogo_3_zwztfr.png" alt="Company Logo" style="max-width: 130px;">
         <p>Address: Menara Success A-1612, Jln simfoni3 , Kuala Lumpur, Malaysia</p>
         <p>Phone: 016-8899552</p>
         <p>Email: gamenextjs@vercel.com</p>
