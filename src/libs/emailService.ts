@@ -89,6 +89,19 @@ const emailSubPaid = async (emailToSend: string, orderData: orderDataTs) => {
             color: white;
         }
         
+        .footer {
+            margin-top: 20px;
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+        }
+        .footer p {
+            margin-bottom: 10px;
+        }
+        .footer a {
+            color: #3F51B5;
+            text-decoration: none;
+        }
         
         
         </style>
@@ -125,7 +138,16 @@ const emailSubPaid = async (emailToSend: string, orderData: orderDataTs) => {
         </table>
         <p>Total: RM${calculateTotal(items).toString()}</p>
         <p>Thank you for choosing our service!</p>
-        <a href="www.google.com" class="button">Visit Store</a>
+        <a href="https://nextjs-game-beta.vercel.app" class="button">Visit Store</a>
+<hr/>
+        <div class="footer">
+        <img src="https://res.cloudinary.com/dbgj9uwjp/image/upload/v1700372458/beanCollectorLogo_3_zwztfr.png" alt="Company Logo" style="max-width: 100px;">
+        <p>Address: Menara Success A-1612, Jln simfoni3 , Kuala Lumpur, Malaysia</p>
+        <p>Phone: 016-8899552</p>
+        <p>Email: gamenextjs@vercel.com</p>
+        <p>Website: <a href="https://nextjs-game-beta.vercel.app">Game Nextjs Store</a></p>
+        <p> Game Nextjs Store <span>&copy;</span> All rights reserved.</p>
+    </div>
       </body>
     </html>`,
     };
