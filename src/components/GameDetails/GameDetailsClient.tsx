@@ -6,7 +6,7 @@ import { getGame } from "@/libs/apis";
 import { FaShoppingCart } from "react-icons/fa";
 import { Game } from "@/model/game";
 import { useAppDispatch } from "@/hooks/storeHook";
-import { addItemToCart } from "@/redux/features/cartSlice";
+import { addItemToCart, toggleCart } from "@/redux/features/cartSlice";
 
 const GameDetailsClient = (props: {
   slug: string;
@@ -48,6 +48,8 @@ const GameDetailsClient = (props: {
   const handleAddToCart = () => {
     if (!gameDetails) return;
     dispatch(addItemToCart({...gameDetails, quantity}));
+    dispatch(toggleCart());
+
   }
 
   return (

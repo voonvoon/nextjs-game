@@ -51,7 +51,7 @@ const emailSubPaid = async (clienObj: ClientInfo, orderData: orderDataTs) => {
       <html>
       <head> 
         <title>Thank you for your purchase!🥳</title>
-        <p>purchase ID: ${_id}</P>
+        
         <style>
           body {
             font-family: Arial, sans-serif;
@@ -119,6 +119,7 @@ const emailSubPaid = async (clienObj: ClientInfo, orderData: orderDataTs) => {
       </head>
       <body>
         <h1>Thank you for your purchase!🥳</h1>
+        <p>Purchase ID: ${_id}</P>
         <p>Purchase Details:</p>
         <table>
           <thead>
@@ -149,6 +150,7 @@ const emailSubPaid = async (clienObj: ClientInfo, orderData: orderDataTs) => {
         </table>
         <p>Total: RM${calculateTotal(items).toString()}</p>
         <hr/>
+        <B>Purchaser Details:</B>
         <P>Buyer Name:${clienObj.full_name} </P>
         <P>Contact:${clienObj.phone} </P>
         <P>Email:${clienObj.email} </P>

@@ -6,7 +6,7 @@ import {
   removeItemFromCart,
   removeAllItemsFromCart,
 } from "@/redux/features/cartSlice";
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState, useRef } from "react";
 import { RiCloseLine } from "react-icons/ri";
 import Image from "next/image";
 import useCartTotals from "@/hooks/useCartTotal";
@@ -15,11 +15,12 @@ import useCartTotals from "@/hooks/useCartTotal";
 import { useSession } from "next-auth/react";
 import Modal from "./CartDetails";
 
-
 const Cart: FC = () => {
   const { showCart, cartItems } = useAppSelector((state) => state.cart);
   const [renderComponent, setRenderComponent] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // const cartRef = useRef<HTMLDivElement>(null);
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -28,10 +29,6 @@ const Cart: FC = () => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-
-  // const testEmail = () => {
-  //   emailSubPaid("wonghv@gmail.com")
-  // }
 
   const { totalPrice } = useCartTotals();
 
@@ -79,12 +76,30 @@ const Cart: FC = () => {
     setRenderComponent(true);
   }, []);
 
+  // useEffect(() => {
+  //   const handleClickOutside = (event: MouseEvent) => {
+  //     if (
+  //       !showCart &&
+  //       cartRef.current &&
+  //       !cartRef.current.contains(event.target as Node)
+  //     ) {
+  //       dispatch(toggleCart());
+  //     }
+  //   };
+
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, [showCart ]);
+
   //const { totalPrice, totalQuantity } = calculateCartTotals(); // tis way we no need :calculateCartTotals().totalPrice
 
   if (!renderComponent) return <></>;
 
   return (
     <div
+      //ref={cartRef}
       className={`${classNames.container} ${
         showCart ? "translate-x-0" : "translate-x-full"
       }`}
@@ -180,5 +195,5 @@ const cartItemClassNames = {
   quantityContainer: "flex items-center",
   quantity: "px-2",
   removeButton:
-    "w-6 h-6 bg-gray-200 text-gray-600 flex items-center justify-center rounded ml-2",
+    "w-6 h-6 bg-gray-200 text-gray-600 flex items-center justify-center rounded",
 };
