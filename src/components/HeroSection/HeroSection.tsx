@@ -10,15 +10,15 @@ const HeroSection: FC<{ showLink?: boolean }> = (props) => {
     <section className={heroClassNames.hero}>
       <div className={heroClassNames.grid}>
         <div className={heroClassNames.content}>
-          <h1 className={heroClassNames.heading}>Gaming</h1>
-          <h1 className={heroClassNames.ctaText}>Unlock your full potential</h1>
+          <h1 className={heroClassNames.heading}>Fire Distinguisher</h1>
+          <h1 className={heroClassNames.ctaText}>Douse Every Flame.. 🔥</h1>
           <p className={heroClassNames.paragraph}>
-            Discover, Learn, and Conquer with Our Extensive Collection of Games
+            Extinguish the flames with our revolutionary products
           </p>
           {showLink && (
             <div className="mt-8 sm:mt-10 rounded">
               <Link href="#recent-games" className={heroClassNames.button}>
-                Find Games
+                Find Products
               </Link>
             </div>
           )}

@@ -23,10 +23,9 @@ const Footer = () => {
       <div className={container}>
         <div className={section}>
           <div className={section1}>
-            <h2 className={section1Heading}>LOGO</h2>
+            <h2 className={section1Heading}>ExtinguishMart🧯</h2>
             <p className={section1Content}>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry.
+            Extinguish the flames with our revolutionary products
             </p>
           </div>
           <div className={section2}>
@@ -34,12 +33,17 @@ const Footer = () => {
             <ul className={section2ul}>
               <li>
                 <Link href="#" className={sectionLink}>
-                  Careers
+                  Term Of Use
                 </Link>
               </li>
               <li>
                 <Link href="#" className={sectionLink}>
-                  Blog
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className={sectionLink}>
+                  Refund & Return
                 </Link>
               </li>
             </ul>
@@ -47,8 +51,13 @@ const Footer = () => {
           <div className={section3}>
             <h2 className={section3Heading}>Contact us</h2>
             <p className={section3Content}>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry.
+                Tel:018-3795728
+            </p>
+            <p className={section3Content}>
+                Email:extinguishMart@gmail.com
+            </p>
+            <p className={section3Content}>
+                Menara Simfoni, A-16-12b , jln simfoni2, Balakong, Seri Kembangangan 43300 Selangor Malaysia
             </p>
           </div>
         </div>
