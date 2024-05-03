@@ -32,17 +32,17 @@ const Footer = () => {
             <h2 className={section2Heading}>About us</h2>
             <ul className={section2ul}>
               <li>
-                <Link href="#" className={sectionLink}>
+                <Link href="/docs/term-of-use" className={sectionLink}>
                   Term Of Use
                 </Link>
               </li>
               <li>
-                <Link href="#" className={sectionLink}>
+                <Link href="/docs/privacy-policy" className={sectionLink}>
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="#" className={sectionLink}>
+                <Link href="/docs/refund-return" className={sectionLink}>
                   Refund & Return
                 </Link>
               </li>

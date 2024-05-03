@@ -70,8 +70,8 @@ const Header = () => {
               <li>
                 <button onClick={() => dispatch(toggleCart())} className={link}>
                   <span>
-                    Cart{" "}
-                    <AiOutlineShoppingCart className="inline-block text-3xl" />
+
+                    <AiOutlineShoppingCart className="inline-block sm: text-3xl" />
                   </span>
                   <div className={cart}>{totalQuantity}</div>
                 </button>
@@ -99,7 +99,7 @@ const Header = () => {
                           fontSize: "18px",
                           cursor: "pointer",
                           marginLeft: "2px",
-                          alignItems: "center"
+                          alignItems: "center",
                         }}
                         className={link}
                       />
