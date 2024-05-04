@@ -2,7 +2,7 @@ const headerClassNames = {
   header: "fixed w-full top-0 left-0 z-20 bg-black text-white",
   container: "container mx-auto py-4 px-1 flex items-center justify-between",
   logoContainer: "flex items-center",
-  logo: "font-bold text-sm md:text-xl hover:text-primary-light",
+  logo: "font-bold  md:text-xl hover:text-primary-light",
   nav: "",
   ul: "flex space-x-6",
   li: "",

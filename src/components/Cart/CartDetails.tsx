@@ -85,7 +85,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="border border-gray-300 p-2 w-full focus:border-blue-300 focus:outline-none"
+                //className="border border-gray-300 p-2 w-full focus:border-blue-300 focus:outline-none"
+                className="border-b border-gray-300 focus:border-blue-300 focus:outline-none transition-colors duration-300 ease-in-out px-2 w-full"
                 required
               />
               <span></span>
@@ -103,7 +104,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className="border border-gray-300 p-2 w-full focus:border-blue-300 focus:outline-none"
+                  //className="border border-gray-300 p-2 w-full focus:border-blue-300 focus:outline-none"
+                  className="border-b border-gray-300 focus:border-blue-300 focus:outline-none transition-colors duration-300 ease-in-out px-2 w-full"
                   required
                 />
                 <span></span>
@@ -120,7 +122,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
                 name="address"
                 value={formData.address}
                 onChange={handleChange}
-                className="border border-gray-300 p-2 w-full focus:border-blue-300 focus:outline-none"
+                //className="border border-gray-300 p-2 w-full focus:border-blue-300 focus:outline-none"
+                className="border-b border-gray-300 focus:border-blue-300 focus:outline-none transition-colors duration-300 ease-in-out px-2 w-full"
                 required
               />
               <span></span>
@@ -135,7 +138,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
                 name="city"
                 value={formData.city}
                 onChange={handleChange}
-                className="border border-gray-300 p-2 w-full focus:border-blue-300 focus:outline-none"
+                //className="border border-gray-300 p-2 w-full focus:border-blue-300 focus:outline-none"
+                className="border-b border-gray-300 focus:border-blue-300 focus:outline-none transition-colors duration-300 ease-in-out px-2 w-full"
                 required
               />
               <span></span>
@@ -150,7 +154,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
                 name="postcode"
                 value={formData.postcode}
                 onChange={handleChange}
-                className="border border-gray-300 p-2 w-full focus:border-blue-300 focus:outline-none"
+                //className="border border-gray-300 p-2 w-full focus:border-blue-300 focus:outline-none"
+                className="border-b border-gray-300 focus:border-blue-300 focus:outline-none transition-colors duration-300 ease-in-out px-2 w-full"
                 required
               />
               <span></span>
@@ -165,7 +170,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
                 name="state"
                 value={formData.state}
                 onChange={handleChange}
-                className="border border-gray-300 p-2 w-full focus:border-blue-300 focus:outline-none"
+                //className="border border-gray-300 p-2 w-full focus:border-blue-300 focus:outline-none"
+                className="border-b border-gray-300 focus:border-blue-300 focus:outline-none transition-colors duration-300 ease-in-out px-2 w-full"
                 required
               />
               <span></span>
@@ -180,7 +186,8 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, cartItems }) => {
                 name="phone"
                 value={formData.phone}
                 onChange={handleChange}
-                className="border border-gray-300 p-2 w-full focus:border-blue-300 focus:outline-none"
+                //className="border border-gray-300 p-2 w-full focus:border-blue-300 focus:outline-none"
+                className="border-b border-gray-300 focus:border-blue-300 focus:outline-none transition-colors duration-300 ease-in-out px-2 w-full"
                 required
               />
               <span></span>
