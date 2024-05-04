@@ -11,7 +11,7 @@ const HeroSection: FC<{ showLink?: boolean }> = (props) => {
       <div className={heroClassNames.grid}>
         <div className={heroClassNames.content}>
           <h1 className={heroClassNames.heading}>Fire Distinguisher</h1>
-          <h1 className={heroClassNames.ctaText}>Douse Every Flame.. 🔥</h1>
+          <h1 className={heroClassNames.ctaText}>Douse Every Flame.. 🧯</h1>
           <p className={heroClassNames.paragraph}>
             Extinguish the flames with our revolutionary products
           </p>
