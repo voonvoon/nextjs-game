@@ -25,7 +25,7 @@ const PrivacyPolicy = () => {
                 Thank you for shopping with Bean Collector. We take great pride in
                 providing you with the variety of quality premium coffee beans. If,
                 for any reason, you are not entirely satisfied with your purchase,
-                we're here to help. Please read our return and refund policy carefully
+                we are here to help. Please read our return and refund policy carefully
                 to understand your rights and obligations.
               </p>
             </div>
