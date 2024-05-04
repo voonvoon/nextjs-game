@@ -20,7 +20,7 @@ const PrivacyPolicy = () => {
             <div className="footer-doc-text">
               <h4 className="text-lg font-semibold mb-2">Introduction</h4>
               <p>
-                Welcome to Bean Collector ("we," "us," "our," or "Company"). At
+                Welcome to Bean Collector ( &quot;we&quot;,   &quot;us&quot;, &quot;our&quot;, or  &quot;Company&quot;). At
                 Bean Collector, we are committed to protecting your privacy and
                 handling your personal information with care. This Privacy
                 Policy outlines how we collect, use, disclose, and safeguard
