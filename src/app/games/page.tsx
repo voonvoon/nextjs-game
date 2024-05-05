@@ -11,9 +11,9 @@ const Games = async (props: {}) => {
       <HeroSection />
 
       <section className={classNames.section}>
-        <h2 className={classNames.heading}> Games</h2>
+        <h2 className={classNames.heading}> Products</h2>
         <p className={classNames.subHeading}>
-          Checkout our latest collection of games
+          Checkout our latest collection of products
         </p>
 
         <div className="flex rounded gap-8 flex-wrap py-10">
@@ -38,4 +38,4 @@ const classNames = {
   section: "py-16 lg:pb-36 px-4 lg:px-36 text-white text-center",
   heading: "text-3xl lg:text-4xl font-bold mb-3",
   subHeading: "text-gray-400 max-w-xl lg:text-lg",
-};
+};

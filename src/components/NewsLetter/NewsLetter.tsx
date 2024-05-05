@@ -3,7 +3,7 @@ const NewsLetter = () => {
     <section className={newsletterSectionClasses.container}>
       <h2 className={newsletterSectionClasses.heading}>Stay in the Loop</h2>
       <p className={newsletterSectionClasses.subHeading}>
-        Subscribe to Our Newsletter for Exclusive Game Updates, Offers, and
+        Subscribe to Our Newsletter for Exclusive Products Updates, Offers, and
         Tips.
       </p>
 

@@ -24,7 +24,7 @@ export default async function Home() {
       <section className={sectionClassNames.section}>
         <div className={sectionClassNames.trending}>
           <h2 className={sectionClassNames.trendingTitle}>
-            Current Trending Games
+            Current Trending Products
           </h2>
         </div>
 
@@ -45,7 +45,7 @@ export default async function Home() {
         {isFeaturedGame && (
           <>
             <h3 className="font-semibold text-2xl max-w-3xl text-center mx-auto text-primary-dark pt-12 sm:pt-28 pb-8 sm:pb-16 leading-[125%] sm:leading-[187%]">
-              Featured Game
+              Featured Products
             </h3>
 
             <section className={sectionClassNames.featured}>
@@ -100,9 +100,9 @@ export default async function Home() {
       </section>
 
       <section id="recent-games" className={recentGamesClasses.section}>
-        <h2 className={recentGamesClasses.heading}>Our Recent Games</h2>
+        <h2 className={recentGamesClasses.heading}>Our Recent Products</h2>
         <p className={recentGamesClasses.subHeading}>
-          Stay Ahead of the Gaming Curve with Our Latest Games.
+          Stay Ahead of the fire extinguisher with Our Latest Products.
         </p>
 
         <div className="flex rounded gap-8 flex-wrap py-10">

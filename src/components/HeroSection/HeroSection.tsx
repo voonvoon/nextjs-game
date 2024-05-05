@@ -25,7 +25,7 @@ const HeroSection: FC<{ showLink?: boolean }> = (props) => {
         </div>
         <div className={heroClassNames.imageContainer}>
           <Image
-            src="https://images.unsplash.com/photo-1592155931584-901ac15763e3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1175&q=80"
+            src="https://images.unsplash.com/photo-1649836215936-41c76a724233?q=80&w=2067&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt="3D Game Development"
             className={heroClassNames.image}
             width={400}
