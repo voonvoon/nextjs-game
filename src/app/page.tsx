@@ -11,7 +11,7 @@ export default async function Home() {
   const games = await getGames();
   const isTrendingGames = games?.filter((game) => game.isTrending);
   const isFeaturedGame = games?.find((game) => game.isFeatured);
-  const recentGames = await getRecentGames()
+  const recentGames = await getRecentGames();
 
   console.log("see games ===>", games);
 
@@ -74,17 +74,21 @@ export default async function Home() {
       <section
         style={{
           backgroundImage:
-            "url('https://images.unsplash.com/photo-1592155931584-901ac15763e3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGxheSUyMHN0YXRpb258ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60",
+            "url(https://images.unsplash.com/photo-1563062067-723c14a7c7ba?q=80&w=2621&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
+
+          //"url('https://images.unsplash.com/photo-1592155931584-901ac15763e3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGxheSUyMHN0YXRpb258ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60",
         }}
         className={styles.categorySection}
       >
         <div className={styles.categoryContent}>
           <h2 className={styles.categoryHeading}>Categories</h2>
           <p className={styles.categorySubHeading}>
-            Explore a wide range of games, offering thrilling adventures,
-            challenging sports, and immersive action gameplay. Discover new
-            worlds, compete with friends, and embark on epic quests that will
-            keep you entertained for hours.
+            Introducing our fire extinguisher: a reliable safety companion
+            equipped with advanced technology for quick and effective fire
+            suppression. Compact yet powerful, this essential tool ensures peace
+            of mind in any environment, ready to safeguard your surroundings and
+            protect what matters most. Trust our extinguisher for prompt
+            response and reliable performance wherever you are.
           </p>
           <div className="flex flex-wrap">
             {categories.map((category) => (
@@ -128,6 +132,7 @@ export default async function Home() {
 }
 
 const sectionClassNames = {
+  //sectionTop: "flex justify-center items-center h-screen",
   section: "px-6 sm:px-12 md:px-20 lg:px-36 mx-auto py-8 text-white",
   trending: "flex flex-col sm:flex-row items-center justify-between mb-8",
   trendingTitle: "font-bold text-3xl sm:mr-4",
@@ -136,7 +141,7 @@ const sectionClassNames = {
   latestButton:
     "mt-4 sm:mt-0 px-6 py-2 rounded-md bg-primary-gradient border-2 border-primary-dark",
   featured: "pb-24 px-6 sm:px-12 md:px-20 lg:px-36 text-white",
-  featuredContent: "mx-auto max-w-screen-xl",
+  featuredContent: "mx-auto max-w-screen-xl whitespace-pre-line",
 };
 
 // const games = [
@@ -181,7 +186,6 @@ const sectionClassNames = {
 //   slug: "eternal-domination",
 //   image: "/images/trending.jpeg",
 // };
-
 
 const featuredClassNames = {
   gameName: "font-bold text-2xl md:text-3xl lg:text-4xl mb-4 md:mb-8",
